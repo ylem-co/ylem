@@ -1,0 +1,22 @@
+# get the base node image
+FROM node:alpine as builder
+
+# set the working dir for container
+WORKDIR /frontend
+
+# copy the json file first
+COPY ./package.json /frontend
+COPY ./package-lock.json /frontend
+
+# extend npm file sizes
+RUN export NODE_OPTIONS=--max_old_space_size=4096
+
+# install npm dependencies
+RUN npm cache clean --force
+RUN npm ci --legacy-peer-deps
+
+# copy other project files
+COPY . .
+
+# build the folder
+# RUN npm run start -- --no-inline --no-hot

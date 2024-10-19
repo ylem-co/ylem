@@ -1,0 +1,189 @@
+import React, { Component } from "react";
+import { Navigate } from 'react-router-dom';
+
+import Form from "react-validation/build/form";
+import CheckButton from "react-validation/build/button";
+
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+
+import { connect } from "react-redux";
+import { updateTask } from "../../../actions/tasks";
+
+import { clearMessage } from "../../../actions/message";
+
+import Input from "../../formControls/input.component";
+import { required } from "../../formControls/validations";
+
+import { TASK_SEVERITY_MEDIUM } from "../../../services/task.service";
+
+import { validatePermissions, PERMISSION_LOGGED_OUT } from "../../../actions/pipeline";
+
+import {
+    Button,
+    Col,
+    InputGroup,
+    Row
+} from 'react-bootstrap'
+
+class ForEachForm extends Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeSeverity = this.onChangeSeverity.bind(this);
+
+        this.state = {
+            organization: localStorage.getItem('organization') ? JSON.parse(localStorage.getItem('organization')) : [],
+            name: this.props.item.name,
+            severity: TASK_SEVERITY_MEDIUM,
+        };
+    }
+
+    componentDidMount() {
+        this.props.dispatch(clearMessage());
+
+        if (this.props.item !== null) {
+            this.setState({
+                item: this.props.item,
+                name: this.props.item.name || "",
+                severity: this.props.item.severity || TASK_SEVERITY_MEDIUM,
+            });
+        }
+    };
+
+    onChangeName(e) {
+        this.setState({
+            name: e.target.value,
+        });
+    }
+
+    onChangeSeverity(severity) {
+        this.setState({ severity })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        this.setState({
+            loading: true,
+            successful: false,
+        });
+
+        this.form.validateAll();
+
+        const { dispatch } = this.props;
+
+        if (this.checkBtn.context._errors.length === 0) {
+            dispatch(
+                updateTask(
+                    this.state.item.uuid, 
+                    this.state.item.pipeline_uuid,
+                    this.state.name,
+                    this.state.severity,
+                    this.state.item.type,
+                    {}
+                )
+            )
+            .then(() => {
+                var item = this.state.item;
+                item.name = this.state.name;
+                this.setState({
+                    loading: false,
+                    successful: true,
+                    item,
+                });
+
+                this.props.successHandler(item);
+            })
+            .catch(() => {
+                this.setState({
+                    loading: false,
+                    successful: false,
+                });
+            });
+        } else {
+            this.setState({
+                loading: false,
+                successful: false,
+            });
+        }
+    }
+
+    render() {
+        const { isLoggedIn, user, message } = this.props;
+
+        if (validatePermissions(isLoggedIn, user, PERMISSION_LOGGED_OUT)) {
+            return <Navigate to="/login" />;
+        }
+
+        return (
+            <div>
+                <Form
+                    onSubmit={this.handleSubmit}
+                    ref={(c) => {
+                        this.form = c;
+                    }}
+                >
+                    <InputGroup className="mb-4">
+                        <div className="registrationFormControl">
+                            <FloatingLabel controlId="floatingName" label="Name">
+                                <Input
+                                    className="form-control form-control-lg"
+                                    type="text"
+                                    id="floatingName"
+                                    placeholder="Name"
+                                    autoComplete="name"
+                                    name="name"
+                                    value={this.state.name}
+                                    onChange={this.onChangeName}
+                                    validations={[required]}
+                                />
+                            </FloatingLabel>
+                        </div>
+                    </InputGroup>
+
+                    <Row>
+                        <Col xs="6">
+                            <Button
+                                className="px-4 btn btn-primary"
+                                disabled={this.state.loading}
+                                type="submit"
+                            >
+                                {this.state.loading && (
+                                    <span className="spinner-border spinner-border-sm spinner-primary"></span>
+                                )}
+                                <span>Save</span>
+                            </Button>
+                        </Col>
+                    </Row>
+                    {message && (
+                        <div className="form-group">
+                            <div className={ this.state.successful ? "alert alert-success mt-3" : "alert alert-danger mt-3" } role="alert">
+                                {message}
+                            </div>
+                        </div>
+                    )}
+                    <CheckButton
+                        style={{ display: "none" }}
+                            ref={(c) => {
+                                this.checkBtn = c;
+                            }}
+                    />
+                </Form>                  
+            </div>
+        );
+    }
+}
+
+function mapStateToProps(state) {
+    const { isLoggedIn } = state.auth;
+    const { message } = state.message;
+    const { user } = state.auth;
+    return {
+        isLoggedIn,
+        message,
+        user
+    };
+}
+
+export default connect(mapStateToProps)(ForEachForm);

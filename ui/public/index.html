@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Ylem">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Condensed&family=Roboto&family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" crossorigin="use-credentials" />
+    <title>Ylem</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
+      var darkTheme = localStorage.getItem('darkTheme');
+      if (darkTheme !== "false") {
+        document.body.classList.add("darkTheme");
+        document.documentElement.setAttribute('data-color-mode', 'dark');
+      }
+    </script>
+    <script>
+      var impersonating = localStorage.getItem('impersonating');
+      if (impersonating) {
+        document.write('<div class="impersonationWarning">Be careful! You are impersonating a user "' + impersonating + '"!</div>');
+      }
+    </script>
+    <div id="root"></div>
+  </body>
+</html>

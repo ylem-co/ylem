@@ -1,0 +1,51 @@
+services:
+  ylem_taskrunner:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_taskrunner/ylem_taskrunner taskrunner start
+    container_name: ylem_taskrunner
+    networks:
+      - ylem_network
+    links:
+      - ylem_session_storage
+    depends_on:
+      - ylem_session_storage
+    ports:
+      - "7335:7335"
+    volumes:
+      - .:/go/src/ylem_taskrunner
+    working_dir: /go/src/ylem_taskrunner
+    stdin_open: true
+    tty: true
+
+  ylem_loadbalancer:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_taskrunner/ylem_taskrunner loadbalancer start
+    container_name: ylem_loadbalancer
+    networks:
+      - ylem_network
+    links:
+      - ylem_session_storage
+    depends_on:
+      - ylem_session_storage
+    ports:
+      - "7334:7335"
+    volumes:
+      - .:/go/src/ylem_taskrunner
+    working_dir: /go/src/ylem_taskrunner
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

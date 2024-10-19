@@ -1,0 +1,48 @@
+services:
+  ylem_api_migrations:
+    env_file:
+      - .env
+      - ../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_api/ylem_api db migrations migrate
+    container_name: ylem_api_migrations
+    networks:
+      - ylem_network
+    links:
+      - ylem_database
+    depends_on:
+      ylem_database:
+        condition: service_healthy
+    volumes:
+      - .:/go/src/ylem_api
+    working_dir: /go/src/ylem_api
+    stdin_open: true
+    tty: true
+
+  ylem_api:
+    env_file:
+      - .env
+      - ../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_api/ylem_api server serve
+    container_name: ylem_api
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_api_migrations
+    ports:
+      - "7339:7339"
+    volumes:
+      - .:/go/src/ylem_api
+    working_dir: /go/src/ylem_api
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

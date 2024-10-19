@@ -1,0 +1,6 @@
+AccessControl==6.3
+fastapi==0.108.0
+uvicorn[standard]==0.25.0
+RestrictedPython==7.0
+cython==3.0.2
+pandas==2.1.4

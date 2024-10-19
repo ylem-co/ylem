@@ -1,0 +1,27 @@
+services:
+  ylem_server:
+    build:
+      context: ./nginx
+    container_name: ylem_server
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_api
+      - ylem_users
+      - ylem_integrations
+      - ylem_pipelines
+      - ylem_statistics
+      - ylem_taskrunner
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./logs:/var/log
+    ports:
+      - "7331:7331"
+      - "443:443"
+
+networks:
+  default:
+    name: ylem_network
+    external: true

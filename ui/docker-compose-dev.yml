@@ -1,0 +1,22 @@
+services: 
+  ylem_ui:
+    build: 
+      context: .
+      args:
+        REACT_APP_ENVIRONMENT: dev
+      dockerfile: Dockerfile.dev
+    command: npm run start -- --no-inline --no-hot
+    container_name: ylem_ui
+    ports:
+      - "7330:7330" 
+    networks:
+      - ylem_network       
+    volumes: 
+      - ./:/frontend
+      - /frontend/node_modules
+    stdin_open: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

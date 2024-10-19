@@ -1,0 +1,48 @@
+services:
+  ylem_integrations_migrations:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_integrations/ylem_integrations db migrations migrate
+    container_name: ylem_integrations_migrations
+    networks:
+      - ylem_network
+    links:
+      - ylem_database
+    depends_on:
+      ylem_database:
+        condition: service_healthy
+    volumes:
+      - .:/go/src/ylem_integrations
+    working_dir: /go/src/ylem_integrations
+    stdin_open: true
+    tty: true
+
+  ylem_integrations:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_integrations/ylem_integrations server serve
+    container_name: ylem_integrations
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_integrations_migrations
+    ports:
+      - "7337:7337"
+    volumes:
+      - .:/go/src/ylem_integrations
+    working_dir: /go/src/ylem_integrations
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

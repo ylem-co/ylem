@@ -1,0 +1,20 @@
+services:
+  ylem_python_processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ylem_python_processor
+    networks:
+      - ylem_network
+    ports:
+      - "7338:7338"
+    volumes:
+      - .:/opt/ylem_python_processor
+    working_dir: /opt/ylem_python_processor
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

@@ -1,0 +1,46 @@
+services:
+  ylem_users_migrations:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_users/ylem_users db migrations migrate
+    container_name: ylem_users_migrations
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_session_storage
+    volumes:
+      - .:/go/src/ylem_users
+    working_dir: /go/src/ylem_users
+    stdin_open: true
+    tty: true
+
+  ylem_users:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_users/ylem_users server serve
+    container_name: ylem_users
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_session_storage
+      - ylem_users_migrations
+    ports:
+      - "7333:7333"
+    volumes:
+      - .:/go/src/ylem_users
+    working_dir: /opt/ylem_users
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

@@ -1,0 +1,58 @@
+name: golangci-lint
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  # Optional: allow read access to pull request. Use with `only-new-issues` option.
+  # pull-requests: read
+
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+          cache: false
+      - name: golangci-lint for API
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.60
+          working-directory: ./api
+          args: --timeout=5m
+      - name: golangci-lint for pipelines
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.60
+          working-directory: ./backend/pipelines
+          args: --timeout=5m
+      - name: golangci-lint for statistics
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.60
+          working-directory: ./backend/statistics
+          args: --timeout=5m
+      - name: golangci-lint for users
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.60
+          working-directory: ./backend/users
+          args: --timeout=5m
+      #- name: golangci-lint for integrations
+      #  uses: golangci/golangci-lint-action@v6
+      #  with:
+      #    version: v1.60
+      #    working-directory: ./backend/integrations
+      #    args: --timeout=5m
+      #- name: golangci-lint for taskrunner
+      #  uses: golangci/golangci-lint-action@v6
+      #  with:
+      #    version: v1.60
+      #    working-directory: ./processor/taskrunner
+      #    args: --timeout=5m

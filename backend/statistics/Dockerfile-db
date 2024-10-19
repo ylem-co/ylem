@@ -1,0 +1,3 @@
+FROM clickhouse/clickhouse-server:24.4.3-alpine
+
+EXPOSE 9000

@@ -1,0 +1,51 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.23'
+
+    - name: Build API
+      run: go build -C api
+
+    - name: Test API
+      run: go test -C api ./tests/...
+
+    - name: Build pipelines
+      run: go build -C backend/pipelines
+
+    - name: Test pipelines
+      run: go test -C backend/pipelines ./tests/...
+
+    - name: Build users
+      run: go build -C backend/users
+
+    - name: Test users
+      run: go test -C backend/users ./tests/...
+
+    - name: Build statistics
+      run: go build -C backend/statistics
+
+    #- name: Build integrations
+    #  run: go build -C backend/integrations -buildvcs=false
+
+    #- name: Build taskrunner
+    #  run: go build -C processor/taskrunner -buildvcs=false
+
+    #- name: Test taskrunner
+    #  run: go test -C processor/taskrunner ./tests/... -buildvcs=false

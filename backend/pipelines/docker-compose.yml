@@ -1,0 +1,105 @@
+services:
+  ylem_pipelines_migrations:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_pipelines/ylem_pipelines db migrations migrate
+    container_name: ylem_pipelines_migrations
+    networks:
+      - ylem_network
+    links:
+      - ylem_database
+    depends_on:
+      ylem_database:
+        condition: service_healthy
+    volumes:
+      - .:/go/src/ylem_pipelines
+    working_dir: /go/src/ylem_pipelines
+    stdin_open: true
+    tty: true
+
+  ylem_pipelines:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_pipelines/ylem_pipelines server serve
+    container_name: ylem_pipelines
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_pipelines_migrations
+    ports:
+      - "7336:7336"
+    volumes:
+      - .:/go/src/ylem_pipelines
+    working_dir: /go/src/ylem_pipelines
+    stdin_open: true
+    tty: true
+
+  ylem_pipelines_schedule_generator:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_pipelines/ylem_pipelines schedulegen start
+    container_name: ylem_pipelines_schedule_generator
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_pipelines_migrations
+    volumes:
+      - .:/go/src/ylem_pipelines
+    working_dir: /go/src/ylem_pipelines
+    stdin_open: true
+    tty: true
+
+  ylem_pipelines_schedule_publisher:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_pipelines/ylem_pipelines schedulepub start
+    container_name: ylem_pipelines_schedule_publisher
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_pipelines_migrations
+    volumes:
+      - .:/go/src/ylem_pipelines
+    working_dir: /go/src/ylem_pipelines
+    stdin_open: true
+    tty: true
+
+  ylem_pipelines_trigger_listener:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_pipelines/ylem_pipelines triggerlistener start
+    container_name: ylem_pipelines_trigger_listener
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_pipelines_migrations
+    volumes:
+      - .:/go/src/ylem_pipelines
+    working_dir: /go/src/ylem_pipelines
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true

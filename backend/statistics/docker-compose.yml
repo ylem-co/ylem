@@ -1,0 +1,95 @@
+services:
+  ylem_statistics_database:
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    networks:
+      - ylem_network
+    environment:
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+      - CLICKHOUSE_DB=${STATISTICS_DB}
+      - CLICKHOUSE_USER=${STATISTICS_DB_USER}
+      - CLICKHOUSE_PASSWORD=${STATISTICS_DB_PASSWORD}
+    ports:
+      - "9000:9000"
+      - "8123:8123"
+    volumes:
+      - ./database/data:/var/lib/clickhouse
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 262144
+        hard: 262144
+    container_name: ylem_statistics_database
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1:8123/ping || exit 1
+      timeout: 10s
+
+  ylem_statistics_migrations:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_statistics/ylem_statistics db migrations migrate
+    container_name: ylem_statistics_migrations
+    networks:
+      - ylem_network
+    links:
+      - ylem_statistics_database
+    depends_on:
+      ylem_statistics_database:
+        condition: service_healthy
+    volumes:
+      - .:/go/src/ylem_statistics
+    working_dir: /go/src/ylem_statistics
+    stdin_open: true
+    tty: true
+
+  ylem_statistics:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_statistics/ylem_statistics server serve
+    container_name: ylem_statistics
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_statistics_migrations
+    ports:
+      - "7332:7332"
+    volumes:
+      - .:/go/src/ylem_statistics
+    working_dir: /go/src/ylem_statistics
+    stdin_open: true
+    tty: true
+
+  ylem_statistics_result_listener:
+    env_file:
+      - .env
+      - ../../.env.common
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /opt/ylem_statistics/ylem_statistics resultlistener start
+    container_name: ylem_statistics_result_listener
+    networks:
+      - ylem_network
+    depends_on:
+      - ylem_statistics_migrations
+    volumes:
+      - .:/go/src/ylem_statistics
+    working_dir: /go/src/ylem_statistics
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: ylem_network
+    external: true
