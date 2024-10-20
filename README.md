@@ -55,9 +55,13 @@ More information is in [our documentation](https://docs.ylem.co/open-source-edit
 
 The best way to install Ylem is to clone the repository https://github.com/ylem-co/ylem-installer and run `docker compose up` or `docker compose up -d` from it. It will install Ylem from the latest version of pre-build containers stored on Docker Hub.
 
+Ylem is available at http://localhost:7331/
+
 ## Or build and install from the source
 
 If you want to compile Ylem from the source, run `docker compose up` or `docker compose up -d` from this repository. It will compile the code and run all the necessary containers.
+
+Ylem is available at http://127.0.0.1:7330/
 
 ### To rebuild a particular container
 
