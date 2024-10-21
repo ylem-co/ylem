@@ -4,7 +4,7 @@
 
 <div align="center">
 
-  ![Static Badge](https://img.shields.io/badge/checks-passing-green)
+  ![GitHub branch check runs](https://img.shields.io/github/check-runs/ylem-co/ylem/main?color=green)
   ![Static Badge](https://img.shields.io/badge/Go-1.23-black)
   ![Static Badge](https://img.shields.io/badge/React-18.3.1-black)
   <a href="https://github.com/ylem-co/ylem?tab=Apache-2.0-1-ov-file">![Static Badge](https://img.shields.io/badge/license-Apache%202.0-black)</a>
@@ -103,6 +103,15 @@ Each microservice has its own README file containing more information about its 
 The user and developer documentation of Ylem is available at https://docs.ylem.co/.
 
 The [open-source section](https://docs.ylem.co/open-source-edition) contains information about the [task-processing architecture](https://docs.ylem.co/open-source-edition/task-processing-architecture) and [configuration of integrations](https://docs.ylem.co/open-source-edition/configuring-integrations-with-.env-variables) using .env files and parameters.
+
+# Explore our additional integration packages
+
+| Integration   | Repository | Description |
+| ------------- | ---------- | ----------- |
+| Apache Kafka  | https://github.com/ylem-co/ylem-kafka-trigger | Containerized Apache Kafka listener to stream data to Ylem |
+| RabbitMQ      | https://github.com/ylem-co/ylem-rabbitmq-consumer | Containerized RabbitMQ consumer to stream data to Ylem |
+| Tableau       | https://github.com/ylem-co/tableau-http-wrapper | Containerized HTTP wrapper to stream data from Ylem to Tableau |
+| AWS S3 Lambda | https://github.com/ylem-co/s3-lambda-trigger  | AWS Lambda function to stream data from AWS S3 to Ylem |
 
 # Key contributors
 
