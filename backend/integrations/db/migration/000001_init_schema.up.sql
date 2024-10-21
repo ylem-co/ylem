@@ -66,7 +66,7 @@ CREATE TABLE `google_sheets` (
   PRIMARY KEY (`id`),
   KEY `gs_integrations` (`integration_id`),
   CONSTRAINT `gs_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'hubspot_authorizations'
 CREATE TABLE `hubspot_authorizations` (
@@ -85,7 +85,7 @@ CREATE TABLE `hubspot_authorizations` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `state` (`state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'hubspots'
 CREATE TABLE `hubspots` (
@@ -101,7 +101,7 @@ CREATE TABLE `hubspots` (
   KEY `hubspot_integrations` (`integration_id`),
   CONSTRAINT `hubspot_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`),
   CONSTRAINT `hubspots_jira_authorization_id` FOREIGN KEY (`hubspot_authorization_id`) REFERENCES `hubspot_authorizations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'incident_ios'
 CREATE TABLE `incident_ios` (
@@ -114,7 +114,7 @@ CREATE TABLE `incident_ios` (
   PRIMARY KEY (`id`),
   KEY `incident_io_integrations` (`integration_id`),
   CONSTRAINT `incident_io_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'jenkinses'
 CREATE TABLE `jenkinses` (
@@ -127,7 +127,7 @@ CREATE TABLE `jenkinses` (
   PRIMARY KEY (`id`),
   KEY `jenkins_integrations` (`integration_id`),
   CONSTRAINT `jenkins_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'jira_authorizations'
 CREATE TABLE `jira_authorizations` (
@@ -145,7 +145,7 @@ CREATE TABLE `jira_authorizations` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `state` (`state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'jiras'
 CREATE TABLE `jiras` (
@@ -160,7 +160,7 @@ CREATE TABLE `jiras` (
   KEY `jira_integrations` (`integration_id`),
   CONSTRAINT `jira_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`),
   CONSTRAINT `jiras_jira_authorization_id` FOREIGN KEY (`jira_authorization_id`) REFERENCES `jira_authorizations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'opsgenies'
 CREATE TABLE `opsgenies` (
@@ -172,7 +172,7 @@ CREATE TABLE `opsgenies` (
   PRIMARY KEY (`id`),
   KEY `opsgenie_integrations` (`integration_id`),
   CONSTRAINT `opsgenie_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'salesforce_authorizations'
 CREATE TABLE `salesforce_authorizations` (
@@ -191,7 +191,7 @@ CREATE TABLE `salesforce_authorizations` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `state` (`state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'salesforces'
 CREATE TABLE `salesforces` (
@@ -205,7 +205,7 @@ CREATE TABLE `salesforces` (
   KEY `salesforce_integrations` (`integration_id`),
   CONSTRAINT `salesforce_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`),
   CONSTRAINT `salesforces_salesforce_authorization_id` FOREIGN KEY (`salesforce_authorization_id`) REFERENCES `salesforce_authorizations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'slack_authorizations'
 CREATE TABLE `slack_authorizations` (
@@ -297,4 +297,4 @@ CREATE TABLE `tableau` (
   PRIMARY KEY (`id`),
   KEY `tableau_integrations` (`integration_id`),
   CONSTRAINT `tableau_integrations` FOREIGN KEY (`integration_id`) REFERENCES `integrations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

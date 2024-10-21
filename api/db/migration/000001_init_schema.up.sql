@@ -14,7 +14,7 @@ CREATE TABLE `oauth_clients` (
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_unicode_ci;
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `oauth_tokens` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -35,4 +35,4 @@ CREATE TABLE `oauth_tokens` (
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_unicode_ci;
+COLLATE=utf8mb4_general_ci;
