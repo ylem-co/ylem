@@ -45,11 +45,11 @@ To be able to work correctly, Ylem requires the following Apache Kafka topics to
 * query_task_run_results
 * notification_task_run_results
 
-## 3. Configure environment variables in .env files
+## 3. (Optional) Configure environment variables in .env files
 
-Some particular integrations might require extra steps and using `.env` files. 
+Some particular integrations might require extra steps and using `.env` files. Configure them if you need to.
 
-More information is in [our documentation](https://docs.ylem.co/open-source-edition/configuring-integrations-with-.env-variables).
+The list of such integrations and more information about them is in [our documentation](https://docs.ylem.co/open-source-edition/configuring-integrations-with-.env-variables).
 
 ## 4. Install from pre-build containers
 
@@ -65,7 +65,7 @@ Ylem is available at http://127.0.0.1:7330/
 
 ### To rebuild a particular container
 
-If you want to rebuild a particular container from source locally, run:
+If you want to rebuild a particular container from a source locally, run the following:
 
 ``` bash
 docker compose build --no-cache %%CONTAINER_NAME%%
@@ -108,10 +108,10 @@ The [open-source section](https://docs.ylem.co/open-source-edition) contains inf
 
 | Integration   | Repository | Description |
 | ------------- | ---------- | ----------- |
-| Apache Kafka  | https://github.com/ylem-co/ylem-kafka-trigger | Containerized Apache Kafka listener to stream data to Ylem |
-| RabbitMQ      | https://github.com/ylem-co/ylem-rabbitmq-consumer | Containerized RabbitMQ consumer to stream data to Ylem |
-| Tableau       | https://github.com/ylem-co/tableau-http-wrapper | Containerized HTTP wrapper to stream data from Ylem to Tableau |
-| AWS S3 Lambda | https://github.com/ylem-co/s3-lambda-trigger  | AWS Lambda function to stream data from AWS S3 to Ylem |
+| <img width="100px" alt="Apache Kafka" title="Apache Kafka" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252FFGLlkFHxjsJMN4bfHJFR%252Fkf.png%3Falt%3Dmedia%26token%3D47a37fc7-13df-410e-9760-85525a424fde&width=245&dpr=2&quality=100&sign=b464460b&sv=1">  | https://github.com/ylem-co/ylem-kafka-trigger | Containerized Apache Kafka listener to stream data to Ylem |
+| <img width="100px" alt="RabbitMQ" title="RabbitMQ" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252FOG2ufh5uxAi54ht1kIBm%252Frabbitmq_logo_icon_170812.png%3Falt%3Dmedia%26token%3D01fb235c-59a3-4a3d-83e3-f6a256f99dd6&width=245&dpr=2&quality=100&sign=d1eda75a&sv=1">      | https://github.com/ylem-co/ylem-rabbitmq-consumer | Containerized RabbitMQ consumer to stream data to Ylem |
+| <img width="100px" alt="AWS S3" title="AWS S3" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252F9ltBsXtDuKbyl1YlaX1M%252Fs3.png%3Falt%3Dmedia%26token%3Daec101c7-f899-4c6b-ad91-7b230b694a63&width=245&dpr=2&quality=100&sign=b3b158ab&sv=1"> | https://github.com/ylem-co/s3-lambda-trigger  | AWS Lambda function to stream data from AWS S3 to Ylem |
+| <img width="100px" alt="Tableau" title="Tableau" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252Fr5M0FiIfvC7on34tLYNN%252FTB.png%3Falt%3Dmedia%26token%3D3d29f3ad-2df5-454f-ae2c-c1cc4a1f191c&width=245&dpr=2&quality=100&sign=8ee0d519&sv=1">       | https://github.com/ylem-co/tableau-http-wrapper | Containerized HTTP wrapper to stream data from Ylem to Tableau |
 
 # Key contributors
 
