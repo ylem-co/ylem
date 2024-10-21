@@ -22,7 +22,7 @@ func CreateTrialPipelines(db *sql.DB, organizationUuid string, sourceUuid string
 		{"4fbe4c86-4ff3-41e8-aea5-062afa9655af", "Demo Pipeline: Generic Multiconditional Streaming"},
 		{"044617b1-4f0f-4966-84af-d108006e1641", "Demo Pipeline: Processing Dataset with jq"},
 		{"06927207-bb5a-4281-a81a-aadf2964004e", "Demo Pipeline: Processing Dataset with Python"},
-		{"8b63256d-db9e-4ae1-9edb-1857efc92831", "Demo Pipeline: Messaging Patterns. Pub/Sub Channel"},
+		{"3d491dd4-b33c-435c-a642-6c1bbf8f7b74", "Demo Pipeline: Messaging Patterns. Message Router"},
 		{"373ddfc2-efd8-444e-9438-804db0c6e749", "Demo Metric: ARR (Annual recurrent revenue)"},
 		{"901ea1f5-c9e8-41ec-8adb-96030e2a39ff", "Demo Metric: OKR. HR. Monthly hires"},
 		{"82f3d55b-6fd5-4397-b768-05be19a00487", "Demo Metric: OKR. Customer success. Number of sign ups"},
