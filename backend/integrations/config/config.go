@@ -109,7 +109,7 @@ func readSshPrivateKey() {
 	c.Ssh.PrivateKey, err = os.ReadFile(path)
 
 	if err != nil {
-		log.Errorf("could not read a private ssh key from %s: %s", path, err.Error())
+		log.Infof("could not read a private ssh key from %s: %s", path, err.Error())
 	}
 }
 
