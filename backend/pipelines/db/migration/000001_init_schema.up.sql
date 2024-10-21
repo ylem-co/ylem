@@ -9,7 +9,7 @@ CREATE TABLE `aggregators` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'api_calls'
 CREATE TABLE `api_calls` (
@@ -26,7 +26,7 @@ CREATE TABLE `api_calls` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'codes'
 CREATE TABLE `codes` (
@@ -39,7 +39,7 @@ CREATE TABLE `codes` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'conditions'
 CREATE TABLE `conditions` (
@@ -51,7 +51,7 @@ CREATE TABLE `conditions` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'env_variables'
 CREATE TABLE `env_variables` (
@@ -67,7 +67,7 @@ CREATE TABLE `env_variables` (
   UNIQUE KEY `uuid` (`uuid`),
   UNIQUE KEY `name_organization` (`organization_uuid`,`name`,`is_active`),
   KEY `org_uuid_index` (`organization_uuid`,`is_active`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'external_triggers'
 CREATE TABLE `external_triggers` (
@@ -79,7 +79,7 @@ CREATE TABLE `external_triggers` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'filters'
 CREATE TABLE `filters` (
@@ -91,7 +91,7 @@ CREATE TABLE `filters` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'folders'
 CREATE TABLE `folders` (
@@ -110,7 +110,7 @@ CREATE TABLE `folders` (
   KEY `name` (`name`),
   KEY `main_folder_selection_index` (`organization_uuid`,`parent_id`,`is_active`,`name`,`type`),
   CONSTRAINT `folders_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `folders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'for_eaches'
 CREATE TABLE `for_eaches` (
@@ -121,7 +121,7 @@ CREATE TABLE `for_eaches` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'gpts'
 CREATE TABLE `gpts` (
@@ -133,7 +133,7 @@ CREATE TABLE `gpts` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'merges'
 CREATE TABLE `merges` (
@@ -145,7 +145,7 @@ CREATE TABLE `merges` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'metrics_run_counts_monthly'
 CREATE TABLE `metrics_run_counts_monthly` (
@@ -155,7 +155,7 @@ CREATE TABLE `metrics_run_counts_monthly` (
   `run_count` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_unique_organization_uuid_year_month` (`organization_uuid`,`year_month`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'notifications'
 CREATE TABLE `notifications` (
@@ -170,7 +170,7 @@ CREATE TABLE `notifications` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'processors'
 CREATE TABLE `processors` (
@@ -183,7 +183,7 @@ CREATE TABLE `processors` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'queries'
 CREATE TABLE `queries` (
@@ -196,7 +196,7 @@ CREATE TABLE `queries` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'run_pipelines'
 CREATE TABLE `run_pipelines` (
@@ -208,7 +208,7 @@ CREATE TABLE `run_pipelines` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'scheduled_runs'
 CREATE TABLE `scheduled_runs` (
@@ -221,7 +221,7 @@ CREATE TABLE `scheduled_runs` (
   `execute_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `execution_index` (`execute_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'shared_pipelines'
 CREATE TABLE `shared_pipelines` (
@@ -236,7 +236,7 @@ CREATE TABLE `shared_pipelines` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_unique_share_link` (`share_link`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'pipelines'
 CREATE TABLE `pipelines` (
@@ -263,7 +263,7 @@ CREATE TABLE `pipelines` (
   KEY `schedule_index` (`is_paused`,`is_active`,`schedule`),
   KEY `pipeline_active_type_index` (`organization_uuid`,`is_active`,`type`,`is_template`),
   CONSTRAINT `pipelines_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'tasks'
 CREATE TABLE `tasks` (
@@ -286,7 +286,7 @@ CREATE TABLE `tasks` (
   KEY `name_active_index` (`name`,`is_active`),
   KEY `type_active_index` (`type`,`is_active`),
   CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`pipeline_id`) REFERENCES `pipelines` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'task_run_results'
 CREATE TABLE `task_run_results` (
@@ -302,7 +302,7 @@ CREATE TABLE `task_run_results` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `task_id` (`task_id`),
   CONSTRAINT `task_run_results_fk_task_id` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'task_run_errors'
 CREATE TABLE `task_run_errors` (
@@ -314,7 +314,7 @@ CREATE TABLE `task_run_errors` (
   PRIMARY KEY (`id`),
   KEY `task_run_errors_fk_task_run_result_id` (`task_run_result_id`),
   CONSTRAINT `task_run_errors_fk_task_run_result_id` FOREIGN KEY (`task_run_result_id`) REFERENCES `task_run_results` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'task_triggers'
 CREATE TABLE `task_triggers` (
@@ -337,7 +337,7 @@ CREATE TABLE `task_triggers` (
   CONSTRAINT `task_triggers_ibfk_1` FOREIGN KEY (`trigger_task_id`) REFERENCES `tasks` (`id`),
   CONSTRAINT `task_triggers_ibfk_2` FOREIGN KEY (`triggered_task_id`) REFERENCES `tasks` (`id`),
   CONSTRAINT `task_triggers_ibfk_3` FOREIGN KEY (`pipeline_id`) REFERENCES `pipelines` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'transformers'
 CREATE TABLE `transformers` (
@@ -354,7 +354,7 @@ CREATE TABLE `transformers` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create syntax for TABLE 'pipeline_run_counts_monthly'
 CREATE TABLE `pipeline_run_counts_monthly` (
@@ -364,4 +364,4 @@ CREATE TABLE `pipeline_run_counts_monthly` (
   `run_count` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_unique_organization_uuid_year_month` (`organization_uuid`,`year_month`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
