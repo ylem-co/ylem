@@ -63,6 +63,8 @@ If you want to compile Ylem from the source, run `docker compose up` or `docker 
 
 Ylem is available at http://127.0.0.1:7330/
 
+:warning: Please pay attention. Compiling from the source might take some time and will keep the resources of your machine busy.
+
 ### To rebuild a particular container
 
 If you want to rebuild a particular container from a source locally, run the following:
