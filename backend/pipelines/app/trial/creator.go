@@ -91,7 +91,7 @@ func createTrialPipeline(db *sql.DB, pipelineUuid string, pipelineName string, o
 		return err
 	}
 
-	tplWf, tasks, tts, err = loadPipelineData(db, newWfUuid)
+	_, tasks, _, err = loadPipelineData(db, newWfUuid)
 	if err != nil {
 		_ = tx.Rollback()
 		log.Error(err)
