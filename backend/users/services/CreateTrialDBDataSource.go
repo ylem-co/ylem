@@ -27,12 +27,12 @@ type dataSource struct {
 func newTrialDataSource(organizationUuid string) *dataSource {
 	d := dataSource{OrganizationUuid: organizationUuid}
 	d.Type = "mysql"
-	d.Name = "Public Rfam Database for testing"
-	d.Host = "mysql-rfam-public.ebi.ac.uk"
-	d.Port = 4497
-	d.User = "rfamro"
-	d.Password = ""
-	d.Database = "Rfam"
+	d.Name = "Ylem test"
+	d.Host = "ylem_database"
+	d.Port = 3306
+	d.User = "dtmntestuser"
+	d.Password = "dtmntestpassword"
+	d.Database = ""
 	d.ConnectionType = "direct"
 
 	return &d

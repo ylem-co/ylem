@@ -84,6 +84,37 @@ func createTrialPipeline(db *sql.DB, pipelineUuid string, pipelineName string, o
 		return err
 	}
 
+
+	tx, err = db.Begin()
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+
+	tplWf, tasks, tts, err = loadPipelineData(db, newWfUuid)
+	if err != nil {
+		_ = tx.Rollback()
+		log.Error(err)
+		return err
+	}
+
+	var query *task.Query
+	var uQuery *task.HttpApiUpdatedQuery
+	for _, qTask := range tasks.Items {
+	    if qTask.Type == task.TaskTypeQuery {
+	    	query, _ = task.GetQuery(db, qTask.Id)
+	    	uQuery.SourceUuid = sourceUuid
+	    	uQuery.SQLQuery = query.SQLQuery
+	    	_ = task.UpdateQueryTx(tx, qTask.Id, uQuery)
+	    }
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+
 	return nil
 }
 

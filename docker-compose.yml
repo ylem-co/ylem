@@ -21,8 +21,8 @@ services:
       - ./database/data:/var/lib/mysql
     container_name: ylem_database
     healthcheck:
-      interval: 5s
-      retries: 5
+      interval: 10s
+      retries: 50
       test:
         [
           "CMD",
@@ -31,7 +31,7 @@ services:
           "--connect",
           "--innodb_initialized"
         ]
-      timeout: 5s
+      timeout: 15s
 
   ylem_session_storage:
     env_file:
@@ -53,6 +53,42 @@ services:
     depends_on:
       ylem_database:
         condition: service_healthy
+      # Comment this one out if you use your own Apache Kafka cluster
+      ylem_kafka_topic_creator:
+        condition: service_completed_successfully
+
+  # Comment this one out if you use your own Apache Kafka cluster
+  ylem_kafka_broker:
+    image: confluentinc/confluent-local:7.7.1
+    container_name: ylem_kafka_broker
+    networks:
+      - ylem_network
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:29092,PLAINTEXT_HOST://localhost:9092,PLAINTEXT_YLEM://ylem_kafka_broker:39092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,PLAINTEXT_YLEM:PLAINTEXT"
+      KAFKA_LISTENERS: "PLAINTEXT://localhost:29092,CONTROLLER://localhost:29093,PLAINTEXT_HOST://0.0.0.0:9092,PLAINTEXT_YLEM://ylem_kafka_broker:39092"
+    ports:
+      - "39092:39092"
+    volumes:
+      - ./database/kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: /bin/kafka-topics --list --bootstrap-server localhost:9092 || exit 1
+      interval: 1s
+      timeout: 60s
+      retries: 60
+  ylem_kafka_topic_creator:
+    image: confluentinc/confluent-local:7.7.1
+    container_name: ylem_kafka_topic_creator
+    networks:
+      - ylem_network
+    depends_on:
+      ylem_kafka_broker:
+        condition: service_healthy
+    command: "bash -c 'kafka-topics --create --if-not-exists --bootstrap-server ylem_kafka_broker:39092 --partitions 1 --replication-factor 1 --topic task_runs && \
+                       kafka-topics --create --if-not-exists --bootstrap-server ylem_kafka_broker:39092 --partitions 1 --replication-factor 1 --topic task_runs_load_balanced && \
+                       kafka-topics --create --if-not-exists --bootstrap-server ylem_kafka_broker:39092 --partitions 1 --replication-factor 1 --topic task_run_results && \
+                       kafka-topics --create --if-not-exists --bootstrap-server ylem_kafka_broker:39092 --partitions 1 --replication-factor 1 --topic query_task_run_results && \
+                       kafka-topics --create --if-not-exists --bootstrap-server ylem_kafka_broker:39092 --partitions 1 --replication-factor 1 --topic notification_task_run_results'"
 
 networks:
   ylem_network:

@@ -171,12 +171,13 @@ class Pipeline extends Component {
       this.handleRunningOutput = this.handleRunningOutput.bind(this);
       this.cleanOutput = this.cleanOutput.bind(this);
       this.changeRunningClass = this.changeRunningClass.bind(this);
+      this.cleanUpElementsLayout = this.cleanUpElementsLayout.bind(this);
 
       this.reactFlowWrapper = React.createRef();
 
       this.state = {
         organization: localStorage.getItem('organization') ? JSON.parse(localStorage.getItem('organization')) : [],
-        elements: JSON.parse(this.props.elements),
+        elements: this.cleanUpElementsLayout(JSON.parse(this.props.elements)),
         name: this.props.newTitle,
         preview: "",
         item: this.props.item,
@@ -197,6 +198,16 @@ class Pipeline extends Component {
         oldOutput: "",
         reactFlowInstance: null,
       };
+    }
+
+    cleanUpElementsLayout(elements) {
+        for(var i = 0; i < elements.length; i++){
+            if (elements[i].type === "run_workflow") {
+              elements[i].type = TASK_TYPE_RUN_PIPELINE
+            }
+        }
+
+        return elements
     }
 
     componentDidMount() {

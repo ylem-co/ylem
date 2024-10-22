@@ -198,7 +198,7 @@ func createElasticsearchSQLIntegration(db *sql.DB, user *services.Authentication
 		return nil
 	}
 
-	err = repositories.CreateSQLIntegration(db, entity)
+	_, err = repositories.CreateSQLIntegration(db, entity)
 
 	if err != nil {
 		log.Error(err)
@@ -320,7 +320,7 @@ func createGenericSQLIntegration(db *sql.DB, user *services.AuthenticationData, 
 		return nil
 	}
 
-	err = repositories.CreateSQLIntegration(db, entity)
+	ent, err := repositories.CreateSQLIntegration(db, entity)
 	if err != nil {
 		log.Error(err)
 		helpers.HttpReturnErrorInternal(w)
@@ -339,6 +339,7 @@ func createGenericSQLIntegration(db *sql.DB, user *services.AuthenticationData, 
 		return nil
 	}
 
+	entity.Integration.Uuid = ent.Integration.Uuid
 	w.WriteHeader(http.StatusOK)
 	jsonResponse, _ := json.Marshal(entity)
 	_, err = w.Write(jsonResponse)
@@ -432,7 +433,7 @@ func createBigQuerySQLIntegration(db *sql.DB, user *services.AuthenticationData,
 		return nil
 	}
 
-	err = repositories.CreateSQLIntegration(db, entity)
+	_, err = repositories.CreateSQLIntegration(db, entity)
 
 	if err != nil {
 		log.Error(err)

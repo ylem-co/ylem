@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) error {
+func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) (*entities.SQLIntegration, error) {
 	log.Tracef("Creating SQL Integration")
 
 	tx, err := db.Begin()
@@ -17,7 +17,7 @@ func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) error {
 	if err != nil {
 		log.Error(err)
 
-		return err
+		return nil, err
 	}
 
 	entity.Integration.Uuid = uuid.NewString()
@@ -40,7 +40,7 @@ func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) error {
 			_ = tx.Rollback()
 			log.Error(err)
 
-			return err
+			return nil, err
 		}
 		defer stmt.Close()
 
@@ -59,7 +59,7 @@ func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) error {
 		if err != nil {
 			_ = tx.Rollback()
 			log.Error(err)
-			return err
+			return nil, err
 		}
 
 		entity.Integration.Id, _ = result.LastInsertId()
@@ -73,7 +73,7 @@ func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) error {
 			_ = tx.Rollback()
 			log.Error(err)
 
-			return err
+			return nil, err
 		}
 		defer stmt.Close()
 
@@ -105,17 +105,17 @@ func CreateSQLIntegration(db *sql.DB, entity *entities.SQLIntegration) error {
 		if err != nil {
 			_ = tx.Rollback()
 			log.Error(err)
-			return err
+			return nil, err
 		}
 	}
 
 	err = tx.Commit()
 	if err != nil {
 		log.Error(err)
-		return err
+		return nil, err
 	}
 
-	return nil
+	return entity, nil
 }
 
 func FindSQLIntegration(db *sql.DB, Uuid string) (*entities.SQLIntegration, error) {
