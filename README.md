@@ -19,45 +19,25 @@ The open-source data streaming platform is a one-stop-shop solution for orchestr
 
 <img width="1158" alt="Screenshot 2024-10-18 at 13 20 37" src="https://github.com/user-attachments/assets/fee384d3-bc10-4681-a3d7-a8a9f5dc8983">
 
+|    |  |  |
+| ------------- | ---------- | ----------- |
+| <img  alt="User dashboard" src="https://github.com/user-attachments/assets/3740b8bd-f127-4ccb-8496-3b68888c5846"> | <img alt="Pipeline running" src="https://github.com/user-attachments/assets/00520fa1-3912-4c9a-850e-546fdd541a06"> | <img alt="Pipeline log" src="https://github.com/user-attachments/assets/628e1be5-5a45-4935-a9fa-6769edada491">  |
+
 # Installation
 
-## 1. Install and configure dependencies
-
-To run Ylem, the following dependencies must be first installed and configured.
-
-### Docker 4
+## Install Docker 4
 
 If you don't yet have Docker 4 installed, [install](https://www.docker.com/products/docker-desktop/) it from their official website for your OS.
 
-### Apache Kafka
+## Install Ylem
 
-Ylem uses Apache Kafka to process pipelines and tasks. [Install](https://kafka.apache.org/) it from their official website or skip this step if you already have it installed.
+### Option 1. Install from pre-build containers
 
-We also recommend that you install the Apache Kafka GUI software to manage its topics and subscriptions.
+The best way to install Ylem is to clone the repository https://github.com/ylem-co/ylem-installer and follow the installation instructions from it. It will install Ylem from the latest version of pre-build containers stored on Docker Hub.
 
-## 2. Create Kafka topics
+Ylem will be available at http://localhost:7331/
 
-To be able to work correctly, Ylem requires the following Apache Kafka topics to be created:
-
-* task_runs
-* task_runs_load_balanced
-* task_run_results
-* query_task_run_results
-* notification_task_run_results
-
-## 3. (Optional) Configure environment variables in .env files
-
-Some particular integrations might require extra steps and using `.env` files. Configure them if you need to.
-
-The list of such integrations and more information about them is in [our documentation](https://docs.ylem.co/open-source-edition/configuring-integrations-with-.env-variables).
-
-## 4. Install from pre-build containers
-
-The best way to install Ylem is to clone the repository https://github.com/ylem-co/ylem-installer and run `docker compose up` or `docker compose up -d` from it. It will install Ylem from the latest version of pre-build containers stored on Docker Hub.
-
-Ylem is available at http://localhost:7331/
-
-## Or build and install from the source
+### Option 2. Build and install from the source
 
 If you want to compile Ylem from the source, run `docker compose up` or `docker compose up -d` from this repository. It will compile the code and run all the necessary containers.
 
@@ -65,7 +45,7 @@ Ylem is available at http://127.0.0.1:7330/
 
 :warning: Please pay attention. Compiling from the source might take some time and will keep the resources of your machine busy.
 
-### To rebuild a particular container
+#### To rebuild a particular container
 
 If you want to rebuild a particular container from a source locally, run the following:
 
@@ -78,6 +58,18 @@ E.g.
 ``` bash
 docker compose build --no-cache ylem_users
 ```
+
+# Using your own Apache Kafka cluster
+
+Ylem uses Apache Kafka to exchange messages for processing pipelines and tasks. By default Ylem already comes with the pre-configured Apache Kafka container, however, you might already have an Apache Kafka cluster in your infrastructure and might want to reuse it.
+
+In this case, you need to take the steps described [here in our documentation](https://docs.ylem.co/open-source-edition/usage-of-apache-kafka).
+
+# Configuring environment variables in .env files
+
+Some particular integrations might require extra steps and using `.env` files. Configure them if you need to.
+
+The list of such integrations and more information about them is in [our documentation](https://docs.ylem.co/open-source-edition/configuring-integrations-with-.env-variables).
 
 # Folder structure in this repository
 
