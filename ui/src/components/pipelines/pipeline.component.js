@@ -295,6 +295,10 @@ class Pipeline extends Component {
             isOutputVisible: false,
             oldOutput: "",
         });
+
+        Array.from(document.getElementsByClassName('nodeTBD')).forEach(element => (
+            element.classList.remove('nodeTBD')
+        ));
     }
 
     setElements(elements) {
@@ -1087,6 +1091,7 @@ class Pipeline extends Component {
     closeRunningForm = async(timeoutError = false, isExternalFailure = false) => {
         await this.promisedSetState({
             isRunningFormOpen: false,
+            isPipelineRunning: false,
         });
 
         if (isExternalFailure === true) {
@@ -1407,9 +1412,9 @@ class Pipeline extends Component {
                 <Button 
                     variant="primary" 
                     onClick={() => this.openRunningForm(false)}
-                    disabled={isPipelineRunning}
+                    disabled={isPipelineRunning === true}
                 >
-                    {isPipelineRunning && (
+                    {isPipelineRunning === true && (
                         <span className="spinner-border spinner-border-sm spinner-primary"></span>
                     )}
                     Run pipeline

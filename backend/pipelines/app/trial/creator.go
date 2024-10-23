@@ -99,13 +99,15 @@ func createTrialPipeline(db *sql.DB, pipelineUuid string, pipelineName string, o
 	}
 
 	var query *task.Query
-	var uQuery *task.HttpApiUpdatedQuery
+	uQuery := new(task.HttpApiUpdatedQuery)
 	for _, qTask := range tasks.Items {
 	    if qTask.Type == task.TaskTypeQuery {
-	    	query, _ = task.GetQuery(db, qTask.Id)
-	    	uQuery.SourceUuid = sourceUuid
-	    	uQuery.SQLQuery = query.SQLQuery
-	    	_ = task.UpdateQueryTx(tx, qTask.Id, uQuery)
+	    	query, err = task.GetQuery(db, qTask.ImplementationId)
+	    	if err == nil {
+		    	uQuery.SourceUuid = sourceUuid
+		    	uQuery.SQLQuery = query.SQLQuery
+		    	_ = task.UpdateQueryTx(tx, qTask.ImplementationId, uQuery)
+		    }
 	    }
 	}
 
