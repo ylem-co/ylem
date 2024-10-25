@@ -212,7 +212,7 @@ class PipelineTemplates extends React.Component {
                     this.state.elements !== null ?
                         this.state.elements.length > 0 ?
                             <Row>
-                                {this.state.elements.map(value => (
+                                {this.state.elements.map((value, index) => (
                                     value.is_template === 1 &&
                                         <Col className="col-3 mb-4" key={value.uuid}>
                                             <Card 
@@ -239,8 +239,12 @@ class PipelineTemplates extends React.Component {
                                                                 {
                                                                     'src' in value ?
                                                                         value.src !== ""
-                                                                        ? <div className="pipelineInTheList"><img src={'data:image/jpeg;base64,' + value.src} className="pipelinePreview" alt={value.name} title={value.name}/></div>
-                                                                        : <div></div>
+                                                                        ? <div className="pipelineInTheList">
+                                                                            <img src={'data:image/jpeg;base64,' + value.src} className="pipelinePreview" alt={value.name} title={value.name}/>
+                                                                        </div>
+                                                                        : <div className="pipelineInTheList">
+                                                                            <img src={'/images/template-previews/' + index % 10 + '.jpeg'} className="pipelinePreview" alt={value.name} title={value.name}/>
+                                                                        </div>
                                                                     : <div className="text-center"><Spinner animation="grow" className="spinner-primary"/></div>
                                                                 }
                                                             </div>

@@ -1172,7 +1172,7 @@ class Pipelines extends React.Component {
                                                         {
                                                             activeItem.src !== ""
                                                                 ? <img onClick={() => this.openForm(activeItem)} src={'data:image/jpeg;base64,' + activeItem.src} className="imgPreview" alt={"Edit:" + activeItem.name} title={"Edit:" + activeItem.name}/>
-                                                                : <div className="pipelinePreview emptyPreview" onClick={() => this.openForm(activeItem)}>Click to edit</div>
+                                                                : <img onClick={() => this.openForm(activeItem)} src="/images/template-previews/3.jpeg" className="imgPreview" alt={"Edit:" + activeItem.name} title={"Edit:" + activeItem.name}/>
                                                         }
                                                     </Col>
                                                     <Col xs={6}>
@@ -1397,7 +1397,7 @@ class Pipelines extends React.Component {
                             { this.state.view === VIEW_GRID
                                 ?
                             <Row>
-                            {this.state.pipelines.map(value => (
+                            {this.state.pipelines.map((value, index) => (
                                     <Col className="col-3 mb-4" key={value.uuid}>
                                         <Card 
                                             className="withHeader onHoverCard draggable"
@@ -1438,7 +1438,9 @@ class Pipelines extends React.Component {
                                                         'src' in value ?
                                                             value.src !== ""
                                                             ? <img src={'data:image/jpeg;base64,' + value.src} onClick={() => this.openPreview(value)} className="pipelinePreview" alt={value.name} title={value.name}/>
-                                                            : <div className="pipelinePreview" onClick={() => this.openPreview(value)}></div>
+                                                            : <div className="pipelinePreview" onClick={() => this.openPreview(value)}>
+                                                                <img onClick={() => this.openPreview(value)} src={'/images/template-previews/' + index % 10 + '.jpeg'} className="pipelinePreview" alt={value.name} title={value.name}/>
+                                                            </div>
                                                         : <div className="text-center"><Spinner animation="grow" className="spinner-primary"/></div>
                                                         )
                                                         :
