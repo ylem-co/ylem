@@ -90,7 +90,7 @@ export const PipelineTriggers = ({ item, openPipelineForm, openScheduleForm }) =
               </Col>
               <Col xs={2} className="text-right">
                 <Tooltip title="Click to copy link to clipboard" placement="left">
-                  <ContentCopy
+                  <ContentCopy className="pointer"
                     onClick={() => copyLink("https://api.datamin.io/v1/pipelines/" + item.uuid + "/runs/")}
                   />
                 </Tooltip>

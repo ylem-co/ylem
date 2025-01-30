@@ -155,7 +155,7 @@ class OAuthClientForm extends Component {
                                                         </Col>
                                                         <Col xs={2} className="text-right">
                                                             <Tooltip title="Click to copy to clipboard" placement="left">
-                                                                <ContentCopy className="note"
+                                                                <ContentCopy className="note pointer"
                                                                     onClick={() => copyLink(message.client.data.secret)}
                                                                 />
                                                             </Tooltip>

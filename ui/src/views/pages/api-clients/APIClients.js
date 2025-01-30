@@ -197,7 +197,7 @@ class APIClients extends React.Component {
                                                         </Col>
                                                         <Col xs={2} className="text-right">
                                                             <Tooltip title="Click to copy to clipboard" placement="left">
-                                                                <ContentCopy
+                                                                <ContentCopy className="pointer"
                                                                     onClick={() => copyLink(value.uuid)}
                                                                 />
                                                             </Tooltip>
