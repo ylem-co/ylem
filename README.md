@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="748" title="Ylem. The open-source data streaming platform" alt="Ylem. The open-source data streaming platform" src="https://github.com/user-attachments/assets/5f3bcbf3-92db-4bff-bdb5-68b88ddefcf4">
+  <img width="748" title="Ylem. The open-source data streaming platform" alt="Ylem. The open-source data streaming platform" src="https://github.com/user-attachments/assets/7753c3a6-ef48-451b-bca2-722f1dd0d8c7" />
 </p>
 
 <div align="center">
