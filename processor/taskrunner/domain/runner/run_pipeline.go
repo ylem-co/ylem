@@ -1,9 +1,6 @@
 package runner
 
 import (
-	"encoding/json"
-	"ylem_taskrunner/helpers/kafka"
-
 	messaging "github.com/ylem-co/shared-messaging"
 )
 
@@ -22,15 +19,7 @@ func RunPipelineTaskRunner(t *messaging.RunPipelineTask) *messaging.TaskRunResul
 		tr.IsInitialTask = t.IsInitialTask
 		tr.IsFinalTask = t.IsFinalTask
 		tr.Meta = t.Meta
-
-		result, err := json.Marshal(t.PipelineToRunUuid)
-		if err != nil {
-			kafka.HandleBadRequestError(t.TaskUuid, messaging.TaskRunPipelineMessageName, err, tr)
-
-			return tr
-		}
-
-		tr.Output = result
+		tr.Output = t.Input
 
 		return tr
 	})

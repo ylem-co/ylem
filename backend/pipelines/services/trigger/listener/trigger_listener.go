@@ -74,7 +74,7 @@ func (l *TriggerListener) OnTaskRunResult(ctx goka.Context, envelope interface{}
 			} else {
 				err = taskrunner.InitiatePipelineRun(tx, msgsrv.TaskRunContext{
 					Task: t,
-				}, []byte{}, uuid.Nil)
+				}, []byte{}, uuid.Nil, trr.Output)
 
 				if err != nil {
 					_ = tx.Rollback()

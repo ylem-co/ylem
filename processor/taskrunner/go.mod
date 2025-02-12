@@ -45,7 +45,7 @@ require (
 	github.com/ylem-co/hubspot-client v0.0.0-20240902164341-00f6a99cfdd1 // indirect
 	github.com/ylem-co/opsgenie-client v0.0.0-20240902173345-eb25eabd0214 // indirect
 	github.com/ylem-co/salesforce-client v0.0.0-20240902165912-6a570283e8d5 // indirect
-	github.com/ylem-co/shared-messaging v0.0.0-20240902171028-26da5a197fd4 // indirect
+	github.com/ylem-co/shared-messaging v0.0.0-20250212095619-4155f4bd1124 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 )
 

@@ -16,7 +16,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func InitiatePipelineRun(tx *sql.Tx, trc msgsrv.TaskRunContext, prevOutputBytes []byte, prewPipelineRunUuid uuid.UUID) error {
+func InitiatePipelineRun(tx *sql.Tx, trc msgsrv.TaskRunContext, prevOutputBytes []byte, prewPipelineRunUuid uuid.UUID, prevPipelineOutputBytes []byte) error {
 	sysVars, err := envvariable.GetEnvVariablesByOrganizationUuidTx(tx, trc.Task.OrganizationUuid)
 	if err != nil {
 		return err
@@ -49,7 +49,7 @@ func InitiatePipelineRun(tx *sql.Tx, trc msgsrv.TaskRunContext, prevOutputBytes 
 	sr := schedule.ScheduledRun{
 		PipelineRunUuid: wrUuid,
 		PipelineId:      wf.Id,
-		Input:           make([]byte, 0),
+		Input:           prevPipelineOutputBytes,
 		EnvVars:         envVars,
 		ExecuteAt:       &executeAt,
 	}

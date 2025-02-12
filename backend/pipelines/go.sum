@@ -971,6 +971,8 @@ github.com/ylem-co/shared-messaging v0.0.0-20240902171028-26da5a197fd4 h1:EMlJO+
 github.com/ylem-co/shared-messaging v0.0.0-20240902171028-26da5a197fd4/go.mod h1:OAQr4N1aBobOY7KC4D4bRXWmdMl4SHxsKSs8yBniIoM=
 github.com/ylem-co/shared-messaging v0.0.0-20240906192118-7b8fffc71211 h1:80cVDw/cJjxYz3DbnjrfXoKTwJD9Rahfzncsk0tQJgw=
 github.com/ylem-co/shared-messaging v0.0.0-20240906192118-7b8fffc71211/go.mod h1:OAQr4N1aBobOY7KC4D4bRXWmdMl4SHxsKSs8yBniIoM=
+github.com/ylem-co/shared-messaging v0.0.0-20250212095619-4155f4bd1124 h1:gf42BLiDeMQP3EH6EQ7UmvCLSOsOIlJ2wmTMwNV3mdo=
+github.com/ylem-co/shared-messaging v0.0.0-20250212095619-4155f4bd1124/go.mod h1:OAQr4N1aBobOY7KC4D4bRXWmdMl4SHxsKSs8yBniIoM=
 github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d/go.mod h1:rHwXgn7JulP+udvsHwJoVG1YGAP6VLg4y9I5dyZdqmA=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
