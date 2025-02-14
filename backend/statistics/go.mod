@@ -52,14 +52,14 @@ require (
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
-	github.com/ylem-co/shared-messaging v0.0.0-20240902171028-26da5a197fd4 // indirect
+	github.com/ylem-co/shared-messaging v0.0.0-20250214095426-8c2750adeae1 // indirect
 	go.opentelemetry.io/otel v1.10.0 // indirect
 	go.opentelemetry.io/otel/trace v1.10.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
-	golang.org/x/sys v0.0.0-20221006211917-84dc82d7e875 // indirect
+	golang.org/x/sys v0.30.0 // indirect
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/dnsutils.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/gokrb5.v7 v7.5.0 // indirect

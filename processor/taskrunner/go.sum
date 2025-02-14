@@ -487,6 +487,8 @@ github.com/twilio/twilio-go v0.19.0 h1:ksf9y3WQlR8x5xDjRNC3bnoFBrjbEYCqiIEoH1vb4
 github.com/twilio/twilio-go v0.19.0/go.mod h1:cDIj6rv7xDcQy6Ss/hB0Tz9901wJbWK4XPw0gnt3U9Y=
 github.com/twilio/twilio-go v1.22.3 h1:u+h5ywaFd2kGO/36PkizX4N/g5q842cjQQcqZqm6rCo=
 github.com/twilio/twilio-go v1.22.3/go.mod h1:zRkMjudW7v7MqQ3cWNZmSoZJ7EBjPZ4OpNh2zm7Q6ko=
+github.com/twilio/twilio-go v1.23.12 h1:adGXL1vocak1BNf7IXhhOXBvSJqcZgRjgnCCEslGMjI=
+github.com/twilio/twilio-go v1.23.12/go.mod h1:zRkMjudW7v7MqQ3cWNZmSoZJ7EBjPZ4OpNh2zm7Q6ko=
 github.com/urfave/cli/v2 v2.3.0 h1:qph92Y649prgesehzOrQjdWyxFOp/QVM+6imKHad91M=
 github.com/urfave/cli/v2 v2.3.0/go.mod h1:LJmUH05zAU44vOAcrfzZQKsZbVcdbOG8rtL3/XcUArI=
 github.com/ylem-co/es-sql-client v0.0.0-20220606104308-38201558d3a6 h1:JBo/5qi9LpAO3R8N0FyerCLiFSGfdm7Bi2TOc74xzDg=
@@ -521,6 +523,10 @@ github.com/ylem-co/shared-messaging v0.0.0-20240902171028-26da5a197fd4 h1:EMlJO+
 github.com/ylem-co/shared-messaging v0.0.0-20240902171028-26da5a197fd4/go.mod h1:OAQr4N1aBobOY7KC4D4bRXWmdMl4SHxsKSs8yBniIoM=
 github.com/ylem-co/shared-messaging v0.0.0-20250212095619-4155f4bd1124 h1:gf42BLiDeMQP3EH6EQ7UmvCLSOsOIlJ2wmTMwNV3mdo=
 github.com/ylem-co/shared-messaging v0.0.0-20250212095619-4155f4bd1124/go.mod h1:OAQr4N1aBobOY7KC4D4bRXWmdMl4SHxsKSs8yBniIoM=
+github.com/ylem-co/shared-messaging v0.0.0-20250214093356-873e9640b447 h1:sK9Uq/Ch2ixJbklw3ldqUmYL/8BspVQiSsLtgdtZxkc=
+github.com/ylem-co/shared-messaging v0.0.0-20250214093356-873e9640b447/go.mod h1:l1vJqUN6RpdhREEKCD6goWZCfQRgvj2y0dlMRk2edbA=
+github.com/ylem-co/shared-messaging v0.0.0-20250214095426-8c2750adeae1 h1:/sTzlXQ6NdKht1LwuT1cwWtZFn375tm9dGS2g/DlLT8=
+github.com/ylem-co/shared-messaging v0.0.0-20250214095426-8c2750adeae1/go.mod h1:l1vJqUN6RpdhREEKCD6goWZCfQRgvj2y0dlMRk2edbA=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
@@ -769,6 +775,8 @@ golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10/go.mod h1:oPkhp1MJrh7nUepCBc
 golang.org/x/sys v0.5.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.15.0 h1:h48lPFYpsTvQJZF4EKyI4aLHaev3CxivZmv7yZig9pc=
 golang.org/x/sys v0.15.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
+golang.org/x/sys v0.30.0 h1:QjkSwP/36a20jFYWkSue1YwXzLmsV5Gfq7Eiy72C1uc=
+golang.org/x/sys v0.30.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=

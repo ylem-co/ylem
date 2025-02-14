@@ -1240,6 +1240,11 @@ a.pipelineBreadcrumb {
   /*background-size: 28px;*/
 }
 
+.cardWithBg-whatsapp {
+  background-image: url("/images/whatsapp-i.png");
+  /*background-size: 28px;*/
+}
+
 .cardWithBg-incidentio {
   background-image: url("/images/incidentio-i.png");
   /*background-size: 28px;*/
@@ -1498,6 +1503,12 @@ a.pipelineBreadcrumb {
 
 .dropdownItemWithBg-sms {
   background-image: url("/images/sms-i.png");
+  background-position: top 7px left 10px;
+  background-size: 28px;
+}
+
+.dropdownItemWithBg-whatsapp {
+  background-image: url("/images/whatsapp-i.png");
   background-position: top 7px left 10px;
   background-size: 28px;
 }

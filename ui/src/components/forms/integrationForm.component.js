@@ -38,6 +38,7 @@ import {
     INTEGRATION_IO_TYPE_READ_WRITE,
     INTEGRATION_TYPE_API,
     INTEGRATION_TYPE_SMS,
+    INTEGRATION_TYPE_WHATSAPP,
     INTEGRATION_TYPE_EMAIL,
     INTEGRATION_TYPE_SLACK,
     INTEGRATION_TYPE_API_AUTH_TYPES,
@@ -112,6 +113,7 @@ class IntegrationForm extends Component {
         this.onChangeJenkinsBaseUrl = this.onChangeJenkinsBaseUrl.bind(this);
         this.onChangeJenkinsProjectName = this.onChangeJenkinsProjectName.bind(this);
         this.onChangeJenkinsToken = this.onChangeJenkinsToken.bind(this);
+        this.onChangeWhatsAppContentSid = this.onChangeWhatsAppContentSid.bind(this);
 
         this.state = {
             organization: localStorage.getItem('organization') ? JSON.parse(localStorage.getItem('organization')) : [],
@@ -156,6 +158,8 @@ class IntegrationForm extends Component {
             tableauProjectName: "",
             tableauDatasourceName: "",
             tableauMode: "overwrite",
+
+            whatsAppContentSid: null,
 
             hubspotAuthorizationUuid: "",
             hubspotAuthorizationName: "",
@@ -414,6 +418,11 @@ class IntegrationForm extends Component {
                 jenkinsBaseUrl: item.data.base_url,
                 jenkinsToken: item.data.token,
             });
+        } else if (item.data.integration.type === INTEGRATION_TYPE_WHATSAPP) {
+            this.setState({
+                number: item.data.integration.value,
+                whatsAppContentSid: item.data.content_sid,
+            });
         }
 
         this.setState({
@@ -497,6 +506,9 @@ class IntegrationForm extends Component {
             data.token = this.state.jenkinsToken;
             data.base_url = this.state.jenkinsBaseUrl;
             data.project_name = this.state.jenkinsProjectName;
+        } else if (this.state.type === INTEGRATION_TYPE_WHATSAPP) {
+            data.number = this.state.number;
+            data.content_sid = this.state.whatsAppContentSid;
         }
 
         return data;
@@ -535,6 +547,12 @@ class IntegrationForm extends Component {
     onChangeNumber(e) {
         this.setState({
             number: e.target.value,
+        });
+    }
+
+    onChangeWhatsAppContentSid(e) {
+        this.setState({
+            whatsAppContentSid: e.target.value,
         });
     }
 
@@ -1038,7 +1056,10 @@ class IntegrationForm extends Component {
                                             </div>
                                         </InputGroup>
 
-                                        { this.state.type === INTEGRATION_TYPE_SMS &&
+                                        { (this.state.type === INTEGRATION_TYPE_SMS 
+                                                || this.state.type === INTEGRATION_TYPE_WHATSAPP
+                                            )
+                                            &&
                                             <InputGroup className="mb-4">
                                                 <div className="registrationFormControl">
                                                     <FloatingLabel controlId="floatingNumber" label="Phone number">
@@ -1056,6 +1077,30 @@ class IntegrationForm extends Component {
                                                     </FloatingLabel>
                                                 </div>
                                             </InputGroup>
+                                        }
+
+                                        { 
+                                            this.state.type === INTEGRATION_TYPE_WHATSAPP
+                                            &&
+                                            <div>
+                                                <InputGroup className="mb-4">
+                                                    <div className="registrationFormControl">
+                                                        <FloatingLabel controlId="floatingContentSid" label="Content SID (Content Template in Twilio)">
+                                                        <Input
+                                                            className="form-control form-control-lg"
+                                                            id="floatingContentSid"
+                                                            type="text"
+                                                            placeholder="Content SID (Content Template in Twilio)"
+                                                            autoComplete="content_sid"
+                                                            name="content_sid"
+                                                            value={this.state.whatsAppContentSid}
+                                                            onChange={this.onChangeWhatsAppContentSid}
+                                                            readOnly={this.state.isWaitingForConfirmation}
+                                                        />
+                                                        </FloatingLabel>
+                                                    </div>
+                                                </InputGroup>
+                                            </div>
                                         }
 
                                         {this.state.type === INTEGRATION_TYPE_INCIDENT_IO &&

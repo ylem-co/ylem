@@ -74,6 +74,19 @@ func (f *NotificationTaskMessageFactory) CreateMessage(trc TaskRunContext) (*mes
 		}
 		msg.IsConfirmed = d.IsConfirmed
 
+	 case task.NotificationTypeWhatsApp:
+		d, err := f.integrationsClient.GetWhatsAppIntegration(dUid)
+		if _, ok := err.(ylem_integrations.ErrorServiceUnavailable); ok {
+			return nil, NewErrorRepeatable("Ylem_integrations service is unavailable")
+		} else if err != nil {
+			return nil, err
+		}
+		err = f.setIntegration(msg, d.Integration)
+		if err != nil {
+			return nil, err
+		}
+		msg.WhatsAppConfiguration.ContentSid = d.ContentSid
+
 	case task.NotificationTypeSlack:
 		d, err := f.integrationsClient.GetSlackIntegration(dUid)
 		if _, ok := err.(ylem_integrations.ErrorServiceUnavailable); ok {

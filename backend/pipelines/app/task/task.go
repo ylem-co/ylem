@@ -202,6 +202,7 @@ const TaskSeverityHigh = "high"
 const TaskSeverityCritical = "critical"
 
 const NotificationTypeSms = "sms"
+const NotificationTypeWhatsApp = "whatsapp"
 const NotificationTypeEmail = "email"
 const NotificationTypeSlack = "slack"
 const NotificationTypeJira = "jira"
@@ -255,6 +256,7 @@ func IsSeveritySupported(Severity string) bool {
 func IsNotificationTypeSupported(Type string) bool {
 	return map[string]bool{
 		NotificationTypeSms:          true,
+		NotificationTypeWhatsApp:     true,
 		NotificationTypeEmail:        true,
 		NotificationTypeSlack:        true,
 		NotificationTypeJira:         true,

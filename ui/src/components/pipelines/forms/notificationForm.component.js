@@ -24,6 +24,7 @@ import IntegrationService, {
     INTEGRATION_TYPE_JENKINS,
     INTEGRATION_TYPE_OPSGENIE,
     INTEGRATION_TYPE_SALESFORCE,
+    INTEGRATION_TYPE_WHATSAPP,
     INTEGRATION_IO_TYPE_WRITE,
 } from "../../../services/integration.service";
 
@@ -572,7 +573,7 @@ class NotificationForm extends Component {
                     <div className={this.state.integrationType === "jenkins" && "hiddenHeader"}>
                         <InputGroup className="mb-4">
                             <div className="registrationFormControl">
-                                <label className="nonFloatingLabel">Message</label>
+                                <label className="nonFloatingLabel">{this.state.integrationType !== INTEGRATION_TYPE_WHATSAPP ? "Message" : "Content (JSON)" }</label>
                                     <CodeEditor
                                         className="form-control form-control-lg codeEditor"
                                         type="text"
@@ -593,6 +594,17 @@ class NotificationForm extends Component {
                                             fontFamily: 'Source Code Pro, monospace',
                                         }}
                                     />
+                                    {
+                                        this.state.integrationType === INTEGRATION_TYPE_WHATSAPP
+                                        &&
+                                        <div className="inputTip">
+                                            Place here JSON in the following format:<br/>
+                                            {'{'}<br/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"phoneTo": &#123;&#123; phone &#125;&#125;,<br/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"contentVariables": "&#123;\"1\":\"12/1\",\"2\":\"3pm\"&#125;"<br/>
+                                            {'}'}
+                                        </div>
+                                    }
                                     <div className="inputTip">
                                         Use brackets &#123;&#123; place_it_here &#125;&#125; to use input data,
                                         aggregation functions or environment variables.

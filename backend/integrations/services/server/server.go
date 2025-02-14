@@ -91,6 +91,10 @@ func (s *Server) Run(ctx context.Context) error {
 	rtr.HandleFunc("/opsgenie/{uuid}", api.UpdateOpsgenieIntegration).Methods(http.MethodPost)
 	rtr.HandleFunc("/opsgenie/{uuid}", api.GetOpsgenieIntegration).Methods(http.MethodGet)
 
+	rtr.HandleFunc("/whatsapp", api.CreateWhatsAppIntegration).Methods(http.MethodPost)
+	rtr.HandleFunc("/whatsapp/{uuid}", api.UpdateWhatsAppIntegration).Methods(http.MethodPost)
+	rtr.HandleFunc("/whatsapp/{uuid}", api.GetWhatsAppIntegration).Methods(http.MethodGet)
+
 	rtr.HandleFunc("/jenkins", api.CreateJenkinsIntegration).Methods(http.MethodPost)
 	rtr.HandleFunc("/jenkins/{uuid}", api.UpdateJenkinsIntegration).Methods(http.MethodPost)
 	rtr.HandleFunc("/jenkins/{uuid}", api.GetJenkinsIntegration).Methods(http.MethodGet)
@@ -125,6 +129,7 @@ func (s *Server) Run(ctx context.Context) error {
 	rtr.HandleFunc("/private/api/{uuid}", api.GetApiIntegrationPrivate).Methods(http.MethodGet)
 	rtr.HandleFunc("/private/email/{uuid}", api.GetEmailIntegrationPrivate).Methods(http.MethodGet)
 	rtr.HandleFunc("/private/sms/{uuid}", api.GetSmsIntegrationPrivate).Methods(http.MethodGet)
+	rtr.HandleFunc("/private/whatsapp/{uuid}", api.GetWhatsAppIntegrationPrivate).Methods(http.MethodGet)
 	rtr.HandleFunc("/private/slack/{uuid}", api.GetSlackIntegrationPrivate).Methods(http.MethodGet)
 	rtr.HandleFunc("/private/jira/{uuid}", api.GetJiraIntegrationPrivate).Methods(http.MethodGet)
 	rtr.HandleFunc("/private/incidentio/{uuid}", api.GetIncidentIoIntegrationPrivate).Methods(http.MethodGet)

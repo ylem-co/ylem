@@ -25,6 +25,7 @@ type Client interface {
 	GetEmailIntegration(uid uuid.UUID) (*Email, error)
 	GetSlackIntegration(uid uuid.UUID) (*Slack, error)
 	GetSmsIntegration(uid uuid.UUID) (*Sms, error)
+	GetWhatsAppIntegration(uid uuid.UUID) (*WhatsApp, error)
 	GetJiraIntegration(uid uuid.UUID) (*Jira, error)
 	GetIncidentIoIntegration(uid uuid.UUID) (*IncidentIo, error)
 	GetOpsgenieIntegration(uid uuid.UUID) (*Opsgenie, error)
@@ -150,6 +151,21 @@ func (c *cachingClient) GetSmsIntegration(uid uuid.UUID) (*Sms, error) {
 
 	return sms, nil
 
+}
+
+func (c *cachingClient) GetWhatsAppIntegration(uid uuid.UUID) (*WhatsApp, error) {
+	r, err := c.getCached(uid, func(uuid.UUID) (interface{}, error) {
+		r, err := c.innerClient.GetWhatsAppIntegration(uid)
+		return r, err
+	})
+	if err != nil {
+		return nil, err
+	}
+	whatsApp, ok := r.(*WhatsApp)
+	if !ok {
+		return nil, nil
+	}
+	return whatsApp, nil
 }
 
 func (c *cachingClient) GetJiraIntegration(uid uuid.UUID) (*Jira, error) {
@@ -391,6 +407,15 @@ func (c *DefaultClient) GetSmsIntegration(uid uuid.UUID) (*Sms, error) {
 	return r, err
 }
 
+func (c *DefaultClient) GetWhatsAppIntegration(uid uuid.UUID) (*WhatsApp, error) {
+	r := &WhatsApp{}
+	err := c.getIntegration(
+		fmt.Sprintf("/private/whatsapp/%s", uid),
+		r,
+	)
+	return r, err
+}
+
 func (c *DefaultClient) GetJiraIntegration(uid uuid.UUID) (*Jira, error) {
 	r := &Jira{}
 
@@ -578,6 +603,12 @@ type Sms struct {
 	Code        string      `json:"-"`
 	IsConfirmed bool        `json:"is_confirmed"`
 	RequestedAt time.Time   `json:"requested_at"`
+}
+
+type WhatsApp struct {
+	Id           int64       `json:"-"`
+	Integration  Integration `json:"integration"`
+	ContentSid   string      `json:"content_sid"`
 }
 
 type Jira struct {

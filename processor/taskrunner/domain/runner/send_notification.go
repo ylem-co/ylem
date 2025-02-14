@@ -110,6 +110,9 @@ func SendNotificationTaskRunner(t *messaging.SendNotificationTask, ctx context.C
 		switch t.Type {
 		case messaging.NotificationTypeSms:
 			err = twilio.SendSms(t.Integration.Value, parsedPayload)
+		case messaging.NotificationTypeWhatsApp:
+			parsedPayload, _ = parseWhatsAppPayload(t, inputMap, tr)
+			err = twilio.SendWhatsAppMessage(t.WhatsAppConfiguration.ContentSid, t.Integration.Value, parsedPayload)
 		case messaging.NotificationTypeEmail:
 			file := createNotificationFile(t)
 			_, err = aws.SendEmail(t.Integration.Value, t.TaskName, parsedPayload, file)
@@ -333,4 +336,30 @@ func inputToMap(input interface{}) ([]map[string]interface{}, error) {
 	}
 
 	return data, nil
+}
+
+func parseWhatsAppPayload(t *messaging.SendNotificationTask, InputMap interface{}, tr *messaging.TaskRunResult) (string, bool) {
+	parsedPayload, err := templater.ParseJsonTemplate(t.Body, InputMap, t.Meta.EnvVars)
+
+	if err != nil {
+		log.Errorf(
+			`could not execute task "%s"" with uuid "%s": %v`,
+			messaging.TaskSendNotificationMessageName,
+			t.TaskUuid,
+			err,
+		)
+
+		tr.IsSuccessful = false
+		tr.Errors = []messaging.TaskRunError{
+			{
+				Code:     messaging.ErrorBadRequest,
+				Severity: messaging.ErrorSeverityError,
+				Message:  err.Error(),
+			},
+		}
+
+		return "", false
+	}
+
+	return parsedPayload, true
 }
