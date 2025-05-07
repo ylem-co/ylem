@@ -26,6 +26,8 @@ type config struct {
 	Gopyk            gopyk
 	YlemStatistics   ylemStatistics
 	Openai           openai
+	Gemini           gemini
+	AIProvider       string     `default:"openai"`
 }
 
 type taskRunner struct {
@@ -80,6 +82,11 @@ type ylemStatistics struct {
 type openai struct {
 	GptKey string `split_words:"true"`
 	Model  string `split_words:"true" default:"gpt-4o-mini"`
+}
+
+type gemini struct {
+	Key string `split_words:"true"`
+	Model  string `split_words:"true" default:"gemini-2.0-flash"`
 }
 
 var c config

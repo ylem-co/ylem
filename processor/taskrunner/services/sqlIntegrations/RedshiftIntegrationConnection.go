@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"database/sql"
-	_ "github.com/alexbrainman/odbc"
 )
 
 type RedshiftSQLIntegrationConnection struct {
