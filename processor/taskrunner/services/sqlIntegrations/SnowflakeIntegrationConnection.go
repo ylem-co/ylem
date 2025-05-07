@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"database/sql"
-
-	_ "github.com/snowflakedb/gosnowflake"
 )
 
 type SnowflakeSQLIntegrationConnection struct {

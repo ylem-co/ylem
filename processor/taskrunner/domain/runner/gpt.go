@@ -2,7 +2,9 @@ package runner
 
 import (
 	"fmt"
+	"ylem_taskrunner/config"
 	"ylem_taskrunner/services/openai"
+	"ylem_taskrunner/services/gemini"
 
 	messaging "github.com/ylem-co/shared-messaging"
 )
@@ -39,11 +41,17 @@ func GptTaskRunner(t *messaging.CallOpenapiGptTask) *messaging.TaskRunResult {
 			return tr
 		}
 
-		inst := openai.Instance()
-		resp, err := inst.CompleteText(openai.Completion{
-			JSON:       string(t.Input),
-			UserPrompt: t.Prompt,
-		})
+		var err error
+		var resp string
+		if config.Cfg().AIProvider == "openai" {
+			inst := openai.Instance()
+			resp, err = inst.CompleteText(openai.Completion{
+				JSON:       string(t.Input),
+				UserPrompt: t.Prompt,
+			})
+		} else {
+			resp, err = gemini.Process(string(t.Input), t.Prompt)
+		}
 
 		if err != nil {
 			tr.IsSuccessful = false
