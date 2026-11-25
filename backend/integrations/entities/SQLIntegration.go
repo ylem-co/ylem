@@ -12,24 +12,24 @@ import (
 const IntegrationTypeSQL = "sql"
 
 type SQLIntegration struct {
-	Id               int64         `json:"-"`
-	Integration      Integration   `json:"integration"`
-	Type             string        `json:"type"`
-	DataKey          kms.SecretBox `json:"-"`
-	Host             kms.SecretBox `json:"host"`
-	Port             int           `json:"port,omitempty"`
-	User             string        `json:"user,omitempty"`
-	Password         kms.SecretBox `json:"-"`
-	Database         string        `json:"database,omitempty"`
-	ConnectionType   string        `json:"connection_type"`
-	SslEnabled       bool          `json:"ssl_enabled"`
-	SshHost          kms.SecretBox `json:"ssh_host,omitempty"`
-	SshPort          int           `json:"ssh_port,omitempty"`
-	SshUser          string        `json:"ssh_user,omitempty"`
-	ProjectId        *string       `json:"project_id,omitempty"`
-	Credentials      kms.SecretBox `json:"credentials,omitempty"`
-	EsVersion        *uint8        `json:"es_version,omitempty"`
-	IsTrial          int           `json:"is_trial"`
+	Id             int64         `json:"-"`
+	Integration    Integration   `json:"integration"`
+	Type           string        `json:"type"`
+	DataKey        kms.SecretBox `json:"-"`
+	Host           kms.SecretBox `json:"host"`
+	Port           int           `json:"port,omitempty"`
+	User           string        `json:"user,omitempty"`
+	Password       kms.SecretBox `json:"-"`
+	Database       string        `json:"database,omitempty"`
+	ConnectionType string        `json:"connection_type"`
+	SslEnabled     bool          `json:"ssl_enabled"`
+	SshHost        kms.SecretBox `json:"ssh_host,omitempty"`
+	SshPort        int           `json:"ssh_port,omitempty"`
+	SshUser        string        `json:"ssh_user,omitempty"`
+	ProjectId      *string       `json:"project_id,omitempty"`
+	Credentials    kms.SecretBox `json:"credentials,omitempty"`
+	EsVersion      *uint8        `json:"es_version,omitempty"`
+	IsTrial        int           `json:"is_trial"`
 }
 
 const SQLIntegrationTypeMySQL = messaging.SQLIntegrationTypeMySQL
@@ -44,6 +44,11 @@ const SQLIntegrationTypeImmuta = messaging.SQLIntegrationTypeImmuta
 const SQLIntegrationTypeMicrosoftAzureSQL = messaging.SQLIntegrationTypeMicrosoftAzureSQL
 const SQLIntegrationTypeRedshift = messaging.SQLIntegrationTypeRedshift
 const SQLIntegrationTypeClickhouse = messaging.SQLIntegrationTypeClickhouse
+
+// SQLIntegrationTypeSupabase is a Postgres-compatible Supabase connection.
+// shared-messaging stores this as a plain string on the query message, and
+// that module does not define the constant yet.
+const SQLIntegrationTypeSupabase = "supabase"
 
 const SQLIntegrationConnectionTypeDirect = messaging.SQLIntegrationConnectionTypeDirect
 const SQLIntegrationConnectionTypeSsh = messaging.SQLIntegrationConnectionTypeSsh
@@ -232,6 +237,7 @@ func IsSQLIntegrationTypeSupported(Type string) bool {
 		SQLIntegrationTypeElasticSearch:     true,
 		SQLIntegrationTypeRedshift:          true,
 		SQLIntegrationTypeClickhouse:        true,
+		SQLIntegrationTypeSupabase:          true,
 	}[Type]
 }
 

@@ -1,20 +1,39 @@
 package sql
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"fmt"
-	"bytes"
-	"strings"
-    "encoding/json"
-    "net/http"
 	log "github.com/sirupsen/logrus"
+	"net/http"
+	"strings"
+	"ylem_integrations/config"
 	"ylem_integrations/entities"
 	"ylem_integrations/services/bigquery"
 	"ylem_integrations/services/es"
-	"ylem_integrations/config"
 )
+
+// supabaseHiddenSchemas are internal schemas created by hosted Supabase.
+// User tables in public and any custom schema stay visible.
+var supabaseHiddenSchemas = []string{
+	"auth",
+	"storage",
+	"realtime",
+	"_realtime",
+	"supabase_functions",
+	"supabase_migrations",
+	"extensions",
+	"graphql",
+	"graphql_public",
+	"pgsodium",
+	"pgsodium_masks",
+	"vault",
+	"net",
+	"cron",
+}
 
 type DefaultSQLIntegrationConnectionConfiguration struct {
 	Host        string
@@ -100,6 +119,16 @@ func CreateSQLIntegrationConnection(Type string, Config DefaultSQLIntegrationCon
 			Database:   Config.Database,
 			SSLEnabled: Config.SslEnabled,
 		}, nil
+	case entities.SQLIntegrationTypeSupabase:
+		return &PostgreSqlIntegrationConnection{
+			Host:          Config.Host,
+			Port:          Config.Port,
+			User:          Config.User,
+			Password:      Config.Password,
+			Database:      Config.Database,
+			SSLEnabled:    Config.SslEnabled,
+			HiddenSchemas: supabaseHiddenSchemas,
+		}, nil
 	case entities.SQLIntegrationTypeSnowflake:
 		return &SnowflakeIntegrationConnection{
 			AccountId: Config.Host,
@@ -168,29 +197,28 @@ func TestSQLIntegrationConnection(Type string, IsSshConnection bool, Config Defa
 }
 
 func UpdateSQLIntegrationConnection(organizationUuid string, isDataSourceCreated bool) bool {
-    config := config.Cfg()
+	config := config.Cfg()
 
-    url := strings.Replace(config.NetworkConfig.UpdateConnectionsUrl, "{uuid}", organizationUuid, -1);
+	url := strings.Replace(config.NetworkConfig.UpdateConnectionsUrl, "{uuid}", organizationUuid, -1)
 
-    rp, _ := json.Marshal(map[string]bool{"is_data_source_created": isDataSourceCreated})
-    var jsonStr = []byte(rp)
-    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-    if err != nil {
-        return false
-    }
-    req.Header.Set("Content-Type", "application/json")
+	rp, _ := json.Marshal(map[string]bool{"is_data_source_created": isDataSourceCreated})
+	var jsonStr = []byte(rp)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	if err != nil {
+		return false
+	}
+	req.Header.Set("Content-Type", "application/json")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    if err != nil {
-        return false
-    }
-    defer resp.Body.Close()
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
 
-    if resp.StatusCode == http.StatusOK {
-        return true
-    } else {
-        return false
-    }
+	if resp.StatusCode == http.StatusOK {
+		return true
+	} else {
+		return false
+	}
 }
-

@@ -124,7 +124,7 @@ export const DataSourcesInfo = {
                 <br/><br/>
                 We recommend having both production and testing connections ready, so you can always properly test your pipelines before using them on production.
                 <br/><br/>
-                At the moment we support a wide range of <strong>SQL-based</strong> data sources, such as MySQL, Snowflake, Postgres, Googgle Big Query, AWS RDS, and others. And this list is growing since we are adding new ones.
+                At the moment we support a wide range of <strong>SQL-based</strong> data sources, such as MySQL, Snowflake, Postgres, Supabase, Googgle Big Query, AWS RDS, and others. And this list is growing since we are adding new ones.
             </div>
         </>
 };
@@ -141,7 +141,7 @@ export const IntegrationsInfo = {
                 <strong>Read-write</strong><br/>
                 <ul>
                     <li>APIs</li>
-                    <li>SQL-databases (MySQL, PostgreSQL, Snowflake, AWS RDS, Google Big Query, etc.)</li>
+                    <li>SQL-databases (MySQL, PostgreSQL, Supabase, Snowflake, AWS RDS, Google Big Query, etc.)</li>
                 </ul>
 
                 <strong>Write</strong><br/>

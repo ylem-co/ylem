@@ -34,6 +34,7 @@ import IntegrationService, {
     INTEGRATION_TYPE_SNOWFLAKE,
     INTEGRATION_TYPE_GOOGLE_BIG_QUERY,
     INTEGRATION_TYPE_POSTGRESQL,
+    INTEGRATION_TYPE_SUPABASE,
     INTEGRATION_TYPE_IMMUTA,
     INTEGRATION_TYPE_REDSHIFT,
     INTEGRATION_TYPE_ELASTICSEARCH,
@@ -102,7 +103,8 @@ class SQLIntegrationForm extends Component {
             );
         } else {
             this.setState({
-                type: this.props.type
+                type: this.props.type,
+                ...this.defaultsForType(this.props.type),
             });
         }
     };
@@ -111,16 +113,38 @@ class SQLIntegrationForm extends Component {
         if (
             props.item === null
         ) {
-            this.setState({
+            const next = {
                 ioType: props.ioType,
                 type: props.type,
-            });
+            };
+            if (props.type !== this.props.type) {
+                Object.assign(next, this.defaultsForType(props.type));
+            }
+            this.setState(next);
         } else {
             this.setState({
                 ioType: props.ioType,
                 type: props.item.type !== INTEGRATION_TYPE_SQL ? props.item.type : props.type,
             });
         }
+    };
+
+    defaultsForType(type) {
+        const next = {};
+        const port = SQL_INTEGRATION_TYPE_PORT_MAP[type];
+        if (port != null) {
+            next.port = port;
+        }
+        if (type === INTEGRATION_TYPE_SUPABASE) {
+            next.sslMode = true;
+            if (!this.state.database) {
+                next.database = "postgres";
+            }
+            if (!this.state.user) {
+                next.user = "postgres";
+            }
+        }
+        return next;
     };
 
     handleGetItem(uuid, type) {
@@ -461,6 +485,11 @@ class SQLIntegrationForm extends Component {
 
                                     { type !== INTEGRATION_TYPE_GOOGLE_BIG_QUERY ?
                                     <>
+                                        {this.state.type === INTEGRATION_TYPE_SUPABASE &&
+                                            <Alert variant="info" className="mb-4">
+                                                Hosted projects require SSL. Direct connection: host db.[project-ref].supabase.co, port 5432, user postgres, database postgres, and the database password from Project Settings.
+                                            </Alert>
+                                        }
                                         <Row>
                                             <Col xs="9">
                                                 <div className="mb-4">
@@ -470,7 +499,7 @@ class SQLIntegrationForm extends Component {
                                                         className="form-control form-control-lg"
                                                         id="floatingHost"
                                                         type="text"
-                                                        placeholder={this.state.type === INTEGRATION_TYPE_SNOWFLAKE ? "Account identifier" : "Host"}
+                                                        placeholder={this.state.type === INTEGRATION_TYPE_SNOWFLAKE ? "Account identifier" : (this.state.type === INTEGRATION_TYPE_SUPABASE ? "db.[project-ref].supabase.co" : "Host")}
                                                         autoComplete="host"
                                                         name="host"
                                                         value={this.state.host}
@@ -550,7 +579,7 @@ class SQLIntegrationForm extends Component {
                                         </Row>
 
                                         <InputGroup className="mb-4">
-                                            {(this.state.type === INTEGRATION_TYPE_POSTGRESQL || this.state.type === INTEGRATION_TYPE_REDSHIFT) &&
+                                            {(this.state.type === INTEGRATION_TYPE_POSTGRESQL || this.state.type === INTEGRATION_TYPE_REDSHIFT || this.state.type === INTEGRATION_TYPE_SUPABASE) &&
                                                 <div className="formControl100">
                                                 <FloatingLabel controlId="floatingDatabase" label="Database">
                                                 <Input
@@ -567,7 +596,7 @@ class SQLIntegrationForm extends Component {
                                                 </FloatingLabel>
                                                 </div>
                                             }
-                                            {(this.state.type !== INTEGRATION_TYPE_POSTGRESQL && this.state.type !== INTEGRATION_TYPE_REDSHIFT) &&
+                                            {(this.state.type !== INTEGRATION_TYPE_POSTGRESQL && this.state.type !== INTEGRATION_TYPE_REDSHIFT && this.state.type !== INTEGRATION_TYPE_SUPABASE) &&
                                                 <div className="formControl100">
                                                 <FloatingLabel controlId="floatingDatabase" label="Database (optional)">
                                                 <Input
@@ -585,7 +614,7 @@ class SQLIntegrationForm extends Component {
                                             }
                                         </InputGroup>
 
-                                        {(this.state.type === INTEGRATION_TYPE_POSTGRESQL || this.state.type === INTEGRATION_TYPE_IMMUTA) &&
+                                        {(this.state.type === INTEGRATION_TYPE_POSTGRESQL || this.state.type === INTEGRATION_TYPE_IMMUTA || this.state.type === INTEGRATION_TYPE_SUPABASE) &&
                                             <>
                                         <span className="inputLabel">SSL mode</span><br/>
                                         <Dropdown size="lg" className="mb-4">

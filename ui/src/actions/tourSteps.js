@@ -36,7 +36,7 @@ export const tourSteps = [
                 <strong>Read-write</strong><br/>
                 <ul>
                     <li>APIs</li>
-                    <li>SQL-databases (MySQL, PostgreSQL, Snowflake, AWS RDS, Google Big Query, etc.)</li>
+                    <li>SQL-databases (MySQL, PostgreSQL, Supabase, Snowflake, AWS RDS, Google Big Query, etc.)</li>
                 </ul>
 
                 <strong>Write</strong><br/>

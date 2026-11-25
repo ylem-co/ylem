@@ -2,16 +2,20 @@ package sqlIntegrations
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"database/sql"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"ylem_taskrunner/helpers"
 	"ylem_taskrunner/services/bigquery"
 	"ylem_taskrunner/services/es"
 
 	messaging "github.com/ylem-co/shared-messaging"
 )
+
+// sqlIntegrationTypeSupabase matches entities.SQLIntegrationTypeSupabase.
+// shared-messaging does not define this constant yet; the query message carries it as a string.
+const sqlIntegrationTypeSupabase = "supabase"
 
 type DefaultSQLIntegrationConnectionConfiguration struct {
 	Host        string
@@ -78,7 +82,8 @@ func CreateSQLIntegrationConnection(Type string, Config DefaultSQLIntegrationCon
 			Database: Config.Database,
 		}, nil
 	case messaging.SQLIntegrationTypePostgresql,
-		messaging.SQLIntegrationTypeImmuta:
+		messaging.SQLIntegrationTypeImmuta,
+		sqlIntegrationTypeSupabase:
 		return &PostgreSqlSQLIntegrationConnection{
 			Host:       Config.Host,
 			Port:       Config.Port,

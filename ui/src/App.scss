@@ -1207,6 +1207,10 @@ a.pipelineBreadcrumb {
   background-image: url("/images/postgresql-i.png");
 }
 
+.cardWithBg-supabase {
+  background-image: url("/images/supabase-i.svg");
+}
+
 .cardWithBg-elasticsearch {
   background-image: url("/images/elasticsearch-i.png");
 }
@@ -1479,6 +1483,11 @@ a.pipelineBreadcrumb {
 
 .dropdownItemWithBg-postgresql {
   background-image: url("/images/postgresql-i.png");
+}
+
+.dropdownItemWithBg-supabase {
+  background-image: url("/images/supabase-i.svg");
+  background-position: top 6px left 8px;
 }
 
 .dropdownItemWithBg-aws-rds {

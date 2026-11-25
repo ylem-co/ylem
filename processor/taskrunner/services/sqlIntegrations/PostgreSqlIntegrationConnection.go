@@ -2,9 +2,11 @@ package sqlIntegrations
 
 import (
 	"context"
-	"fmt"
-	"log"
 	"database/sql"
+	"log"
+	"net"
+	"net/url"
+	"strconv"
 	"ylem_taskrunner/helpers/postgresql"
 
 	_ "github.com/lib/pq"
@@ -22,6 +24,34 @@ type PostgreSqlSQLIntegrationConnection struct {
 	DB         *sql.DB
 }
 
+func sslModeString(enabled bool) string {
+	if enabled {
+		return "require"
+	}
+
+	return "disable"
+}
+
+// buildPostgresDSN percent-encodes the user and password. Supabase database
+// passwords routinely include characters that break an unescaped URL.
+func buildPostgresDSN(user, password, host string, port uint16, database, sslMode string, extra map[string]string) string {
+	query := url.Values{}
+	query.Set("sslmode", sslMode)
+	for key, value := range extra {
+		query.Set(key, value)
+	}
+
+	dsn := &url.URL{
+		Scheme:   "postgres",
+		User:     url.UserPassword(user, password),
+		Host:     net.JoinHostPort(host, strconv.Itoa(int(port))),
+		Path:     "/" + database,
+		RawQuery: query.Encode(),
+	}
+
+	return dsn.String()
+}
+
 func init() {
 	driver := &postgresql.Driver{}
 	sql.Register("postgres+ssh", driver)
@@ -31,11 +61,15 @@ func init() {
 
 func (s *PostgreSqlSQLIntegrationConnection) Open() error {
 	var err error
-	sslModeString := "disable"
-	if s.SSLEnabled {
-		sslModeString = "require"
-	}
-	s.DB, err = sql.Open("postgres", fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s", s.User, s.Password, s.Host, s.Port, s.Database, sslModeString))
+	s.DB, err = sql.Open("postgres", buildPostgresDSN(
+		s.User,
+		s.Password,
+		s.Host,
+		s.Port,
+		s.Database,
+		sslModeString(s.SSLEnabled),
+		nil,
+	))
 	if err != nil {
 		return err
 	}
@@ -54,23 +88,20 @@ func (s *PostgreSqlSQLIntegrationConnection) OpenSsh(Host string, Port uint16, U
 	}
 
 	s.DriverId = Host + "." + uniqueCode
-	sslModeString := "disable"
-	if s.SSLEnabled {
-		sslModeString = "require"
-	}
 
-	dsn := fmt.Sprintf(
-		"postgres://%s:%s@%s:%d/%s?sslmode=%s&sshHost=%s&sshPort=%d&sshUser=%s&sshDriverId=%s",
+	dsn := buildPostgresDSN(
 		s.User,
 		s.Password,
 		s.Host,
 		s.Port,
 		s.Database,
-		sslModeString,
-		Host,
-		Port,
-		User,
-		s.DriverId,
+		sslModeString(s.SSLEnabled),
+		map[string]string{
+			"sshHost":     Host,
+			"sshPort":     strconv.Itoa(int(Port)),
+			"sshUser":     User,
+			"sshDriverId": s.DriverId,
+		},
 	)
 	s.DB, err = sql.Open("postgres+ssh", dsn)
 
