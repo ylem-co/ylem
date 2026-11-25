@@ -27,6 +27,7 @@ type config struct {
 	YlemStatistics   ylemStatistics
 	Openai           openai
 	Gemini           gemini
+	Anthropic        anthropic
 	AIProvider       string     `default:"openai"`
 }
 
@@ -87,6 +88,11 @@ type openai struct {
 type gemini struct {
 	Key string `split_words:"true"`
 	Model  string `split_words:"true" default:"gemini-2.0-flash"`
+}
+
+type anthropic struct {
+	Key   string `split_words:"true"`
+	Model string `split_words:"true" default:"claude-haiku-5-5"`
 }
 
 var c config

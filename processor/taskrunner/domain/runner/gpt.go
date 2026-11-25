@@ -3,6 +3,7 @@ package runner
 import (
 	"fmt"
 	"ylem_taskrunner/config"
+	"ylem_taskrunner/services/anthropic"
 	"ylem_taskrunner/services/openai"
 	"ylem_taskrunner/services/gemini"
 
@@ -43,14 +44,23 @@ func GptTaskRunner(t *messaging.CallOpenapiGptTask) *messaging.TaskRunResult {
 
 		var err error
 		var resp string
-		if config.Cfg().AIProvider == "openai" {
+		switch config.Cfg().AIProvider {
+		case "openai":
 			inst := openai.Instance()
 			resp, err = inst.CompleteText(openai.Completion{
 				JSON:       string(t.Input),
 				UserPrompt: t.Prompt,
 			})
-		} else {
+		case "gemini":
 			resp, err = gemini.Process(string(t.Input), t.Prompt)
+		case "anthropic":
+			inst := anthropic.Instance()
+			resp, err = inst.CompleteText(anthropic.Completion{
+				JSON:       string(t.Input),
+				UserPrompt: t.Prompt,
+			})
+		default:
+			err = fmt.Errorf("unsupported AI provider %q", config.Cfg().AIProvider)
 		}
 
 		if err != nil {
