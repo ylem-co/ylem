@@ -1,0 +1,18 @@
+version: "2"
+
+# golangci-lint v2 runs stylecheck (ST*) and quickfix (QF*) inside staticcheck.
+# v1.60, the previous CI linter, enabled only staticcheck (SA*) and gosimple (S*)
+# and ignored unchecked Close/Flush errors by default.
+linters:
+  settings:
+    staticcheck:
+      checks:
+        - all
+        - "-ST*"
+        - "-QF*"
+  exclusions:
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling

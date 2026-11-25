@@ -1,4 +1,4 @@
-FROM public.ecr.aws/b5q6i6w4/ylem-public-images@sha256:c73b7d09874740f2c0df7003954fbbc46310ae30363e4a201d809aac5dff6afc AS builder
+FROM golang:1.27.4 AS builder
 
 RUN apt-get update && apt-get install -y ca-certificates git curl
 
@@ -21,7 +21,7 @@ COPY . .
 
 RUN go build .
 
-FROM public.ecr.aws/b5q6i6w4/ylem-public-images@sha256:c73b7d09874740f2c0df7003954fbbc46310ae30363e4a201d809aac5dff6afc AS final
+FROM golang:1.27.4 AS final
 
 COPY --from=builder /usr/local/bin /usr/local/bin
 

@@ -1,4 +1,4 @@
-FROM golang:1.23.2-alpine AS builder
+FROM golang:1.27.4-alpine AS builder
 
 ENV CGO_ENABLED=0
 
@@ -30,7 +30,7 @@ VOLUME /opt/ylem_users/config/jwt
 RUN printf "n" | ssh-keygen -t rsa -b 4096 -m PEM -f ./config/jwt/private.pem -q -N ""; exit 0
 RUN printf "" | openssl rsa -in ./config/jwt/private.pem -pubout -passin 'pass:' -outform PEM -out ./config/jwt/public.pem; exit 0
 
-FROM golang:1.23.2-alpine AS final
+FROM golang:1.27.4-alpine AS final
 
 #RUN apk add --no-cache openssh-keygen openssl
 

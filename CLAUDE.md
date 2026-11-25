@@ -102,7 +102,7 @@ service/
 
 ## Language and framework details
 
-### Go services (Go 1.23)
+### Go services (Go 1.27.4)
 
 - **HTTP**: `gorilla/mux` — flat REST routes per service
 - **CLI**: `urfave/cli/v2` — subcommands for `server serve`, `db migrations migrate`, Kafka workers
@@ -164,7 +164,7 @@ go test -C backend/pipelines ./tests/...
 golangci-lint run
 ```
 
-CI uses golangci-lint v1.60 with `--timeout=5m`.
+CI uses golangci-lint v2.15.0 with `--timeout=5m`.
 
 ### Running migrations
 

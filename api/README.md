@@ -1,6 +1,6 @@
 # YLEM API MICROSERVICE
 
-![Static Badge](https://img.shields.io/badge/Go-1.23-black)
+![Static Badge](https://img.shields.io/badge/Go-1.27.4-black)
 <a href="https://github.com/ylem-co/ylem?tab=Apache-2.0-1-ov-file">![Static Badge](https://img.shields.io/badge/license-Apache%202.0-black)</a>
 <a href="https://ylem.co" target="_blank">![Static Badge](https://img.shields.io/badge/website-ylem.co-black)</a>
 <a href="https://docs.ylem.co" target="_blank">![Static Badge](https://img.shields.io/badge/documentation-docs.ylem.co-black)</a>

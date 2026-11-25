@@ -1,6 +1,6 @@
 module ylem_integrations
 
-go 1.23
+go 1.27.4
 
 require (
 	cloud.google.com/go/bigquery v1.59.0

@@ -102,7 +102,7 @@ func reflectSelect(key string, value interface{}) (selection interface{}, ok boo
 }
 
 func resolvePotentialPointer(value reflect.Value) reflect.Value {
-	if value.Kind() == reflect.Ptr {
+	if value.Kind() == reflect.Pointer {
 		return value.Elem()
 	}
 	return value

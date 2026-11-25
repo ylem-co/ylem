@@ -5,7 +5,7 @@
 <div align="center">
 
   ![GitHub branch check runs](https://img.shields.io/github/check-runs/ylem-co/ylem/main?color=green)
-  ![Static Badge](https://img.shields.io/badge/Go-1.23-black)
+  ![Static Badge](https://img.shields.io/badge/Go-1.27.4-black)
   ![Static Badge](https://img.shields.io/badge/React-18.3.1-black)
   <a href="https://github.com/ylem-co/ylem?tab=Apache-2.0-1-ov-file">![Static Badge](https://img.shields.io/badge/license-Apache%202.0-black)</a>
   <a href="https://github.com/ylem-co/ylem/tags">![Static Badge](https://img.shields.io/badge/tag-v0.0.1_pre_release-black)</a>

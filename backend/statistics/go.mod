@@ -1,6 +1,6 @@
 module ylem_statistics
 
-go 1.23
+go 1.27.4
 
 require (
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0

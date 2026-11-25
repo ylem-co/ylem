@@ -1,4 +1,4 @@
-FROM golang:1.23.2-alpine AS builder
+FROM golang:1.27.4-alpine AS builder
 
 RUN apk add --no-cache ca-certificates git wget
 
@@ -17,7 +17,7 @@ COPY . .
 
 RUN go build .
 
-FROM golang:1.23.2-alpine AS final
+FROM golang:1.27.4-alpine AS final
 
 RUN apk add --no-cache wget
 

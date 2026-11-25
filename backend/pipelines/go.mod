@@ -1,6 +1,6 @@
 module ylem_pipelines
 
-go 1.23
+go 1.27.4
 
 require (
 	github.com/adhocore/gronx v0.2.6
