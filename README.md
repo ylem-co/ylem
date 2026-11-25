@@ -9,8 +9,6 @@
   ![Static Badge](https://img.shields.io/badge/React-18.3.1-black)
   <a href="https://github.com/ylem-co/ylem?tab=Apache-2.0-1-ov-file">![Static Badge](https://img.shields.io/badge/license-Apache%202.0-black)</a>
   <a href="https://github.com/ylem-co/ylem/tags">![Static Badge](https://img.shields.io/badge/tag-v0.0.1_pre_release-black)</a>
-  <a href="https://ylem.co" target="_blank">![Static Badge](https://img.shields.io/badge/website-ylem.co-black)</a>
-  <a href="https://docs.ylem.co" target="_blank">![Static Badge](https://img.shields.io/badge/documentation-docs.ylem.co-black)</a>
   <a href="https://join.slack.com/t/ylem-co/shared_invite/zt-2nawzl6h0-qqJ0j7Vx_AEHfnB45xJg2Q" target="_blank">![Static Badge](https://img.shields.io/badge/community-join%20Slack-black)</a>
 </div>
 
@@ -106,10 +104,3 @@ The [open-source section](https://docs.ylem.co/open-source-edition) contains inf
 | <img width="100px" alt="RabbitMQ" title="RabbitMQ" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252FOG2ufh5uxAi54ht1kIBm%252Frabbitmq_logo_icon_170812.png%3Falt%3Dmedia%26token%3D01fb235c-59a3-4a3d-83e3-f6a256f99dd6&width=245&dpr=2&quality=100&sign=d1eda75a&sv=1">      | https://github.com/ylem-co/ylem-rabbitmq-consumer | Containerized RabbitMQ consumer to stream data to Ylem |
 | <img width="100px" alt="AWS S3" title="AWS S3" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252F9ltBsXtDuKbyl1YlaX1M%252Fs3.png%3Falt%3Dmedia%26token%3Daec101c7-f899-4c6b-ad91-7b230b694a63&width=245&dpr=2&quality=100&sign=b3b158ab&sv=1"> | https://github.com/ylem-co/s3-lambda-trigger  | AWS Lambda function to stream data from AWS S3 to Ylem |
 | <img width="100px" alt="Tableau" title="Tableau" src="https://docs.ylem.co/~gitbook/image?url=https%3A%2F%2F3180830455-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FD0FT8l3QzMrw546vOdHU%252Fuploads%252Fr5M0FiIfvC7on34tLYNN%252FTB.png%3Falt%3Dmedia%26token%3D3d29f3ad-2df5-454f-ae2c-c1cc4a1f191c&width=245&dpr=2&quality=100&sign=8ee0d519&sv=1">       | https://github.com/ylem-co/tableau-http-wrapper | Containerized HTTP wrapper to stream data from Ylem to Tableau |
-
-# Key contributors
-
-* [olschaefer](https://github.com/olschaefer)
-* [schneekatze](https://github.com/schneekatze)
-* [lunoshot](https://github.com/lunoshot)
-* [Ardem](https://github.com/Ardem)
